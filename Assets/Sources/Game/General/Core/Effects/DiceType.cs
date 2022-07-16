@@ -1,6 +1,5 @@
 namespace Game.General.Effects
 {
-    using System;
 
     public enum DiceType
     {
@@ -10,7 +9,6 @@ namespace Game.General.Effects
         Four,
         Five,
         Six,
-        Fire
     }
 
     public static class DiceTypeHelper
