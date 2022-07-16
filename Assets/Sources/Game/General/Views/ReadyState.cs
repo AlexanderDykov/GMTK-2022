@@ -1,6 +1,7 @@
 namespace Game.General.Views
 {
     using System;
+    using Commands;
     using Services;
     using UnityEngine;
     using UnityEngine.UI;
@@ -23,13 +24,13 @@ namespace Game.General.Views
             button.onClick.AddListener(OnReadyButtonClick);
         }
 
-        private void OnReadyButtonClick()
+        private async void OnReadyButtonClick()
         {
-            var a = playerAssignedMoveCollector.CreateAssignedMove();
-            arenaService.ApplyTurn(new Turn()
+            arenaService.ApplyTurn(new Turn
             {
-                AssignedMoves = a
+                AssignedMoves = playerAssignedMoveCollector.CreateAssignedMove()
             });
+            await new ResetTurnCommand().Execute();
         }
 
         private void OnDestroy()

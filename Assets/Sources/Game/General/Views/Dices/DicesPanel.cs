@@ -13,17 +13,28 @@ namespace Game.General.Views
         [SerializeField]
         private Transform parent;
 
+        private List<DiceElement> _pool = new List<DiceElement>();
 
         public void Setup(string sourceId, List<DiceType> dices)
         {
             for (var index = 0; index < dices.Count; index++)
             {
                 var diceType = dices[index];
-                var diceElement = Instantiate(_diceElementPrefab, parent);
+                DiceElement diceElement = null;
+                if (index < _pool.Count)
+                {
+                    diceElement = _pool[index];
+                }
+                else
+                {
+                    diceElement = Instantiate(_diceElementPrefab, parent);
+                    _pool.Add(diceElement);
+                }
+
                 ApplyDice(sourceId, diceElement, diceType);
             }
         }
-        
+
         private async void ApplyDice(string sourceId, DiceElement diceElement, DiceType diceType)
         {
             await diceElement.SpeenAnimation();

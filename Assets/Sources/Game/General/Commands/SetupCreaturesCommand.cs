@@ -16,7 +16,8 @@ namespace Game.General.Commands
             {
                 BodyParts = new List<BodyPart>
                 {
-                    BodyPart.Head
+                    BodyPart.Head,
+                    BodyPart.Body
                 },
                 Dices = new List<Dice>
                 {

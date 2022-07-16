@@ -1,5 +1,6 @@
 namespace Game.General.Views
 {
+    using System;
     using Cysharp.Threading.Tasks;
     using Effects;
     using Services;
@@ -24,11 +25,15 @@ namespace Game.General.Views
 
         private Transform initialParent;
 
+        private void Awake()
+        {
+            initialParent = transform.parent;
+        }
+
         private void Start()
         {
             _diceSelector.ElementSelected += OnElementSelected;
             _diceSelector.ElementDeselected += OnElementDeselected;
-            initialParent = transform.parent;
         }
 
         private void OnElementDeselected()
@@ -57,6 +62,7 @@ namespace Game.General.Views
             this.diceType = diceType;
             this.sourceId = sourceId;
             image.sprite = _diceIconProvider.GetIcon(diceType);
+            ResetParent();
         }
 
         private void OnDestroy()
