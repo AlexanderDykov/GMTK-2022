@@ -5,10 +5,6 @@ namespace Game.General
 
     public class Turn
     {
-        public List<DiceType> PlayerRolledDiceTypes;
-
-        public Dictionary<string, List<DiceType>> CreaturesRolledDiceTypes;
-
         public Dictionary<Target, List<Move>> AssignedMoves;
     }
 

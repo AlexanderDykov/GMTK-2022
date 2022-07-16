@@ -1,16 +1,16 @@
-namespace Game.General.Views
+namespace Game.General.Commands
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Cysharp.Threading.Tasks;
     using Effects;
-    using Services;
-    using UnityEngine;
-    using Zenject;
+    using Views;
     using static Effects.DiceType;
+    using static UnityEngine.Object;
 
-    public class Root : MonoBehaviour
+    public class SetupCreaturesCommand : ICommand
     {
-        private void Start()
+        public UniTask Execute()
         {
             var player = new CreatureConfig
             {
@@ -52,19 +52,21 @@ namespace Game.General.Views
                 },
                 MaxHealth = 20
             };
-            
-            
+
+
             var playerView = FindObjectsOfType<CreatureView>().FirstOrDefault(x => x.CompareTag("Player"));
             if (playerView != null)
             {
                 playerView.ApplyConfig(player);
             }
-            
+
             var enemyView = FindObjectsOfType<CreatureView>().FirstOrDefault(x => x.CompareTag("Enemy"));
             if (enemyView != null)
             {
                 enemyView.ApplyConfig(rat);
             }
+
+            return UniTask.CompletedTask;
         }
     }
 }

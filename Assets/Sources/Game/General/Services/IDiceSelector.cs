@@ -8,11 +8,13 @@ namespace Game.General.Services
         DiceElement Selected { get; }
 
         event Action<DiceElement> ElementSelected;
+        event Action<DiceElement> ElementRemovedToHand;
         event Action ElementDeselected;
 
         void Select(DiceElement element);
 
         void Deselect();
+        void Remove(DiceElement diceElement);
     }
 
     public class DiceSelector : IDiceSelector
@@ -21,6 +23,7 @@ namespace Game.General.Services
 
         public event Action<DiceElement> ElementSelected;
         public event Action ElementDeselected;
+        public event Action<DiceElement> ElementRemovedToHand;
 
         public void Select(DiceElement element)
         {
@@ -32,6 +35,11 @@ namespace Game.General.Services
         {
             Selected = null;
             ElementDeselected?.Invoke();
+        }
+
+        public void Remove(DiceElement diceElement)
+        {
+            ElementRemovedToHand?.Invoke(diceElement);
         }
     }
 }

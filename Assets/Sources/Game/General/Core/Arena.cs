@@ -9,7 +9,7 @@ namespace Game.General
     {
         public Dictionary<string, Creature> Creatures = new Dictionary<string, Creature>();
 
-        private SpellBook _spellBook;
+        private SpellBook _spellBook = new SpellBook();
 
         public void ApplyTurn(Turn turn)
         {
@@ -19,9 +19,14 @@ namespace Game.General
                 var creature = Creatures[target.Id];
                 var attackRecord = new AttackRecord();
                 var effects = new Dictionary<EffectOrder, List<Effect>>();
-                
-                foreach (var effect in turnAssignedMove.Value.Select(move => _spellBook.Find(move)))
+
+                var enumerable = turnAssignedMove.Value.Select(move => _spellBook.Find(move)).ToList();
+                foreach (var effect in enumerable)
                 {
+                    if (!effects.ContainsKey(effect.Order))
+                    {
+                        effects[effect.Order] = new List<Effect>();
+                    }
                     effects[effect.Order].Add(effect);
                 }
 
@@ -56,6 +61,9 @@ namespace Game.General
 
         public int Calculate()
         {
+            if (Resist >= Damage)
+                return 0;
+            
             var calculate = Damage - Resist;
             return calculate;
         }

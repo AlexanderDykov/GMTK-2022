@@ -80,7 +80,9 @@ namespace Game.General.Views
             }
             else if (eventData.button == PointerEventData.InputButton.Right)
             {
+                _diceSelector.Deselect();
                 _layoutElement.ignoreLayout = false;
+                _diceSelector.Remove(this);
             }
 
         }

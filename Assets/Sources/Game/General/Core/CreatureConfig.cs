@@ -2,6 +2,7 @@ namespace Game.General
 {
     using System;
     using System.Collections.Generic;
+    using UnityEngine;
 
     public class CreatureConfig
     {
@@ -30,9 +31,13 @@ namespace Game.General
 
         public void ApplyDamage(int damage)
         {
+            Debug.LogError("was " + _currentHealth);
             _currentHealth -= damage;
             _currentHealth = Math.Max(0, _currentHealth);
             CurrentHealthChanged?.Invoke(_currentHealth);
+
+            Debug.LogError("now " + _currentHealth);
+
             if (IsDead)
             {
                 Dead?.Invoke();

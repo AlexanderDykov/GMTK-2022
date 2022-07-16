@@ -4,12 +4,17 @@ namespace Game.General.Views
     using System.Collections.Generic;
     using BodyParts;
     using Effects;
+    using Services;
     using UnityEngine;
     using UnityEngine.UI;
+    using Zenject;
     using Random = UnityEngine.Random;
 
     public class CreatureView : MonoBehaviour
     {
+        [Inject]
+        private IArenaService arenaService;
+
         [SerializeField]
         private Slider healthBar;
 
@@ -22,8 +27,6 @@ namespace Game.General.Views
         [SerializeField]
         private BodyPartView _bodyPartViewPrefab;
 
-        private Arena _arena = new Arena();
-
         private Creature _creature;
 
         public void ApplyConfig(CreatureConfig creatureConfig)
@@ -32,13 +35,14 @@ namespace Game.General.Views
             _creature = new Creature(creatureConfig.MaxHealth, id);
             _creature.CurrentHealthChanged += OnCurrentHealthChanged;
 
-            _arena.Creatures.Add(id, _creature);
+            arenaService.Add(id, _creature);
             UpdateHealthBar(creatureConfig.MaxHealth);
             var dices = new List<DiceType>();
             foreach (var creatureConfigDice in creatureConfig.Dices)
             {
                 dices.Add(creatureConfigDice.Random());
             }
+
             foreach (var creatureConfigBodyPart in creatureConfig.BodyParts)
             {
                 var bodyPart = Instantiate(_bodyPartViewPrefab, bodiesParent);
@@ -62,7 +66,8 @@ namespace Game.General.Views
 
         private void OnDestroy()
         {
-            _creature.CurrentHealthChanged -= OnCurrentHealthChanged;
+            if (_creature != null)
+                _creature.CurrentHealthChanged -= OnCurrentHealthChanged;
         }
     }
 }

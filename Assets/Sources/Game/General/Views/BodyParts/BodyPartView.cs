@@ -18,32 +18,50 @@ namespace Game.General.Views.BodyParts
 
         private string _id;
 
-        private Dictionary<string, List<DiceType>> _moves = new();
+        private readonly HashSet<DiceElement> _dices = new();
+
+
+        private void Start()
+        {
+            _selector.ElementRemovedToHand += OnElementRemovedToHand;
+        }
+
+        private void OnElementRemovedToHand(DiceElement diceElement)
+        {
+            Remove(diceElement);
+        }
+
+        private void Remove(DiceElement diceElement)
+        {
+            _dices.Remove(diceElement);
+        }
 
         public void Create(BodyPart bodyPart, string id)
         {
             _id = id;
             _bodyPart = bodyPart;
-            _moves.Clear();
-        }
-
-        public void AddDice(string sourceId, DiceType diceTypes)
-        {
-            if (!_moves.ContainsKey(sourceId))
-            {
-                _moves[sourceId] = new List<DiceType>();
-            }
-
-            _moves[sourceId].Add(diceTypes);
+            _dices.Clear();
         }
 
         public (Target, List<Move>) CreateAssignedMove()
         {
+            Dictionary<string, List<DiceType>> moves = new();
+
+            foreach (var diceElement in _dices)
+            {
+                if (!moves.ContainsKey(diceElement.sourceId))
+                {
+                    moves[diceElement.sourceId] = new List<DiceType>();
+                }
+
+                moves[diceElement.sourceId].Add(diceElement.diceType);
+            }
+
             return (new Target()
             {
                 Id = _id,
                 BodyPart = _bodyPart
-            }, _moves.Select(x => new Move()
+            }, moves.Select(x => new Move()
             {
                 DiceTypes = x.Value,
                 SourceId = x.Key
@@ -55,11 +73,16 @@ namespace Game.General.Views.BodyParts
             var selectorSelected = _selector.Selected;
             if (selectorSelected != null)
             {
-                AddDice(selectorSelected.sourceId, selectorSelected.diceType);
+                _dices.Add(_selector.Selected);
                 //todo move selectorSelected to this transform position
                 selectorSelected.transform.position = transform.position;
                 _selector.Deselect();
             }
+        }
+
+        private void OnDestroy()
+        {
+            _selector.ElementRemovedToHand -= OnElementRemovedToHand;
         }
     }
 }
