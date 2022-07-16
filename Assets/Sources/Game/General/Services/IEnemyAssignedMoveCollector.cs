@@ -31,6 +31,15 @@ namespace Game.General.Services
                 var targetParts =
                     isTargetEnemy ? enemyProvider.Current.BodyParts : playerProvider.PlayerConfig.BodyParts;
 
+                if (isTargetEnemy)
+                {
+                    Debug.LogError("Enemy defends his " + bodyPart + " with value = " + randomDice);
+                }
+                else
+                {
+                    Debug.LogError("Enemy attack players " + bodyPart + " with value = " + randomDice);
+                }
+
                 result.Add(new Target()
                 {
                     Id = targetId,
