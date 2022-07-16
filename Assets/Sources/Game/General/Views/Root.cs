@@ -1,6 +1,7 @@
 namespace Game.General.Views
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Effects;
     using Services;
     using UnityEngine;
@@ -9,12 +10,6 @@ namespace Game.General.Views
 
     public class Root : MonoBehaviour
     {
-        [SerializeField]
-        private DicesPanel playerPanel;
-
-        [SerializeField]
-        private Transform bodiesParent;
-
         private void Start()
         {
             var player = new CreatureConfig
@@ -37,8 +32,39 @@ namespace Game.General.Views
                 },
                 MaxHealth = 20
             };
-            var playerView = FindObjectOfType<CreatureView>();
-            playerView.ApplyConfig(player);
+            var rat = new CreatureConfig
+            {
+                BodyParts = new List<BodyPart>
+                {
+                    BodyPart.Head
+                },
+                Dices = new List<Dice>
+                {
+                    new(new List<DiceType>
+                    {
+                        One,
+                        Two,
+                        Three,
+                        Four,
+                        Five,
+                        Six,
+                    })
+                },
+                MaxHealth = 20
+            };
+            
+            
+            var playerView = FindObjectsOfType<CreatureView>().FirstOrDefault(x => x.CompareTag("Player"));
+            if (playerView != null)
+            {
+                playerView.ApplyConfig(player);
+            }
+            
+            var enemyView = FindObjectsOfType<CreatureView>().FirstOrDefault(x => x.CompareTag("Enemy"));
+            if (enemyView != null)
+            {
+                enemyView.ApplyConfig(rat);
+            }
         }
     }
 }

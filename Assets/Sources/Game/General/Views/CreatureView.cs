@@ -45,7 +45,10 @@ namespace Game.General.Views
                 bodyPart.Create(creatureConfigBodyPart, id);
             }
 
-            _dicesPanel.Setup(id, dices);
+            if (_dicesPanel != null)
+            {
+                _dicesPanel.Setup(id, dices);
+            }
         }
 
         private void OnCurrentHealthChanged(int currentHealth)
