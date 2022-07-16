@@ -9,10 +9,13 @@ namespace Game.General.Views.BodyParts
     using UnityEngine.EventSystems;
     using Zenject;
 
-    public class BodyPartView : MonoBehaviour, IPointerClickHandler
+    public class BodyPartView : MonoBehaviour
     {
         [Inject]
         private IDiceSelector _selector;
+
+        [SerializeField]
+        private Transform parentForDices;
 
         private BodyPart _bodyPart;
 
@@ -68,21 +71,18 @@ namespace Game.General.Views.BodyParts
             }).ToList());
         }
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            var selectorSelected = _selector.Selected;
-            if (selectorSelected != null)
-            {
-                _dices.Add(_selector.Selected);
-                //todo move selectorSelected to this transform position
-                selectorSelected.transform.position = transform.position;
-                _selector.Deselect();
-            }
-        }
-
         private void OnDestroy()
         {
             _selector.ElementRemovedToHand -= OnElementRemovedToHand;
+        }
+
+        public void Add(DiceElement selectorSelected)
+        {
+            _dices.Add(selectorSelected);
+            //todo move selectorSelected to this transform position
+            parentForDices = transform;
+            selectorSelected.transform.parent = parentForDices;
+            selectorSelected.transform.position = transform.position;
         }
     }
 }

@@ -635,6 +635,7 @@ GameObject:
   - component: {fileID: 717913204}
   - component: {fileID: 717913203}
   - component: {fileID: 717913205}
+  - component: {fileID: 717913206}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -703,6 +704,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1929901202}
+--- !u!114 &717913206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717913202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690e675f27d24eab92f938410d82c0e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Raycaster: {fileID: 1669126733}
+  m_EventSystem: {fileID: 2122960066}
 --- !u!1 &727357957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,9 +1024,9 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &1097693348
 MonoBehaviour:
@@ -1480,9 +1495,9 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &1628892631
 MonoBehaviour:

@@ -91,10 +91,10 @@ MonoBehaviour:
   _dicesToSprites:
     keys: 01000000020000000300000004000000050000000600000007000000
     values:
-    - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - {fileID: 21300000, guid: 86c21436a40904572b79e6f5db03f5bd, type: 3}
+    - {fileID: 21300000, guid: 61098d0d660fa416fa347be328e7d0bf, type: 3}
+    - {fileID: 21300000, guid: c34c4cd46f10a4bf7bad89a9a4d9ad95, type: 3}
+    - {fileID: 21300000, guid: d8cb7d60104da4c9aa7e50ee527e6754, type: 3}
+    - {fileID: 21300000, guid: 26c7a4e997943414a86cd1cac6611cee, type: 3}
+    - {fileID: 21300000, guid: c8bf8f98a44f3451f9a3d1a05d1ff9fa, type: 3}
+    - {fileID: 21300000, guid: 571a5d157e25f42d1819b86270370c9b, type: 3}

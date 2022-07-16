@@ -8,7 +8,7 @@ namespace Game.General.Views
     using UnityEngine.UI;
     using Zenject;
 
-    public class DiceElement : MonoBehaviour, IPointerClickHandler
+    public class DiceElement : MonoBehaviour
     {
         [SerializeField]
         private Image image;
@@ -16,19 +16,19 @@ namespace Game.General.Views
         [SerializeField]
         private Image border;
 
-        [SerializeField]
-        private LayoutElement _layoutElement;
-
         [Inject]
         private IDiceIconProvider _diceIconProvider;
 
         [Inject]
         private IDiceSelector _diceSelector;
 
+        private Transform initialParent;
+
         private void Start()
         {
             _diceSelector.ElementSelected += OnElementSelected;
             _diceSelector.ElementDeselected += OnElementDeselected;
+            initialParent = transform.parent;
         }
 
         private void OnElementDeselected()
@@ -65,26 +65,9 @@ namespace Game.General.Views
             _diceSelector.ElementDeselected -= OnElementDeselected;
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void ResetParent()
         {
-            if (_diceSelector.Selected == this)
-            {
-                _diceSelector.Deselect();
-                return;
-            }
-
-            if (eventData.button == PointerEventData.InputButton.Left)
-            {
-                _layoutElement.ignoreLayout = true;
-                _diceSelector.Select(this);
-            }
-            else if (eventData.button == PointerEventData.InputButton.Right)
-            {
-                _diceSelector.Deselect();
-                _layoutElement.ignoreLayout = false;
-                _diceSelector.Remove(this);
-            }
-
+            transform.parent = initialParent;
         }
     }
 }

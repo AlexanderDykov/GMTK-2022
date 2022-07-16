@@ -28,6 +28,15 @@ namespace Game.General.Commands
                         Four,
                         Five,
                         Six,
+                    }),
+                    new(new List<DiceType>
+                    {
+                        One,
+                        Two,
+                        Three,
+                        Four,
+                        Five,
+                        Six,
                     })
                 },
                 MaxHealth = 20
