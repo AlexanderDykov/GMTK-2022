@@ -4,6 +4,7 @@ namespace Game.General
     using System.Collections.Generic;
     using System.Linq;
     using Effects;
+    using UnityEngine;
 
     public class Arena
     {
@@ -27,6 +28,7 @@ namespace Game.General
                     {
                         effects[effect.Order] = new List<Effect>();
                     }
+
                     effects[effect.Order].Add(effect);
                 }
 
@@ -34,10 +36,12 @@ namespace Game.General
                 {
                     effect.Execute(target, attackRecord, effects);
                 }
-
-                //Item1 to class
-                int damage = attackRecord.Calculate();
-                creature.ApplyDamage(damage);
+                
+                var damage = attackRecord.Calculate();
+                if (damage > 0)
+                {
+                    creature.ApplyDamage(damage);
+                }
             }
 
             var notDeadList = new Dictionary<string, Creature>();
@@ -63,7 +67,7 @@ namespace Game.General
         {
             if (Resist >= Damage)
                 return 0;
-            
+
             var calculate = Damage - Resist;
             return calculate;
         }
@@ -80,8 +84,30 @@ namespace Game.General
             _move = move;
         }
 
-        public abstract void Execute(Target target, AttackRecord attackRec,
-            Dictionary<EffectOrder, List<Effect>> effects);
+        public void Execute(Target target, AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
+        {
+            if (target.Id == _move.SourceId)
+            {
+                ResistEffect(target, attackRec, effects);
+            }
+            else
+            {
+                DamageEffect(target, attackRec, effects);
+            }
+        }
+
+        protected virtual void DamageEffect(Target target, AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
+        {
+            attackRec.Damage += _move.DiceTypes.Sum(x => x.GetValue());
+        }
+
+        protected virtual void ResistEffect(Target target, AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
+        {
+            attackRec.Resist += _move.DiceTypes.Sum(x => x.GetValue());
+        }
     }
 
     public class FireBallEffect : Effect
@@ -90,7 +116,7 @@ namespace Game.General
         {
         }
 
-        public override void Execute(Target target, AttackRecord attackRec,
+        protected override void DamageEffect(Target target, AttackRecord attackRec,
             Dictionary<EffectOrder, List<Effect>> effects)
         {
             attackRec.Damage += _move.DiceTypes.Sum(x => x.GetValue()) + 2;
@@ -101,12 +127,6 @@ namespace Game.General
     {
         public DefaultEffect(Move move) : base(move)
         {
-        }
-
-        public override void Execute(Target target, AttackRecord attackRec,
-            Dictionary<EffectOrder, List<Effect>> effects)
-        {
-            attackRec.Damage += _move.DiceTypes.Sum(x => x.GetValue());
         }
     }
 
@@ -136,11 +156,4 @@ namespace Game.General
     {
         Default
     }
-
-
-    //spellbook Dict<List<DiceType>, EffectType>
-
-    //EffectType -> Effect
-
-    //
 }
