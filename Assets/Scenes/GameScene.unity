@@ -301,6 +301,7 @@ MonoBehaviour:
   _dicesPanel: {fileID: 186289476}
   _bodyPartViewPrefab: {fileID: 6278403426237526990, guid: 093b05b7ab790405883f460bb9ca40e9,
     type: 3}
+  isPlayer: 1
 --- !u!1 &538830954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,6 +1433,7 @@ MonoBehaviour:
   _dicesPanel: {fileID: 0}
   _bodyPartViewPrefab: {fileID: 6278403426237526990, guid: 093b05b7ab790405883f460bb9ca40e9,
     type: 3}
+  isPlayer: 0
 --- !u!1 &1628892628
 GameObject:
   m_ObjectHideFlags: 0
