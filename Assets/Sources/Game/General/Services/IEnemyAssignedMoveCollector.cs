@@ -31,6 +31,7 @@ namespace Game.General.Services
                 var targetParts =
                     isTargetEnemy ? enemyProvider.Current.BodyParts : playerProvider.PlayerConfig.BodyParts;
 
+                var bodyPart = targetParts.RandomElement();
                 if (isTargetEnemy)
                 {
                     Debug.LogError("Enemy defends his " + bodyPart + " with value = " + randomDice);
@@ -43,7 +44,7 @@ namespace Game.General.Services
                 result.Add(new Target()
                 {
                     Id = targetId,
-                    BodyPart = targetParts.RandomElement()
+                    BodyPart = bodyPart
                 }, new List<Move>()
                 {
                     new()
