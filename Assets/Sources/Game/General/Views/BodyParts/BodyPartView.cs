@@ -1,12 +1,10 @@
 namespace Game.General.Views.BodyParts
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Effects;
     using Services;
     using UnityEngine;
-    using UnityEngine.EventSystems;
     using Zenject;
 
     public class BodyPartView : MonoBehaviour
@@ -83,6 +81,11 @@ namespace Game.General.Views.BodyParts
             parentForDices = transform;
             selectorSelected.transform.parent = parentForDices;
             selectorSelected.transform.position = transform.position;
+        }
+
+        public void ResetBodyPart()
+        {
+            _dices.Clear();
         }
     }
 }

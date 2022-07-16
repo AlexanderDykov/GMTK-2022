@@ -1,6 +1,7 @@
 namespace Game.General.Views
 {
     using System;
+    using System.Linq;
     using Commands;
     using Services;
     using UnityEngine;
@@ -17,6 +18,10 @@ namespace Game.General.Views
         private IPlayerAssignedMoveCollector playerAssignedMoveCollector;
 
         [Inject]
+        private IEnemyAssignedMoveCollector enemyAssignedMoveCollector;
+
+
+        [Inject]
         private IArenaService arenaService;
 
         private void Start()
@@ -26,10 +31,31 @@ namespace Game.General.Views
 
         private async void OnReadyButtonClick()
         {
-            arenaService.ApplyTurn(new Turn
+            var assignedMoves = playerAssignedMoveCollector.CreateAssignedMove();
+            var enemyAssignedMoves = enemyAssignedMoveCollector.CreateAssignedMove();
+
+            foreach (var enemyAssignedMove in enemyAssignedMoves)
             {
-                AssignedMoves = playerAssignedMoveCollector.CreateAssignedMove()
-            });
+                var duplicate = assignedMoves.Keys.FirstOrDefault(x =>
+                    x.Id == enemyAssignedMove.Key.Id && x.BodyPart == enemyAssignedMove.Key.BodyPart);
+
+                if (duplicate != null)
+                {
+                    var duplicateWithValue = assignedMoves.FirstOrDefault(x =>
+                        x.Key.Id == enemyAssignedMove.Key.Id && x.Key.BodyPart == enemyAssignedMove.Key.BodyPart);
+                    duplicateWithValue.Value.AddRange(enemyAssignedMove.Value);
+                }
+                else
+                {
+                    assignedMoves.Add(enemyAssignedMove.Key, enemyAssignedMove.Value);
+                }
+            }
+
+            var turn = new Turn
+            {
+                AssignedMoves = assignedMoves
+            };
+            arenaService.ApplyTurn(turn);
             await new ResetTurnCommand().Execute();
         }
 

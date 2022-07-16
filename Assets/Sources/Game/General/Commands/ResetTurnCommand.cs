@@ -11,7 +11,7 @@ namespace Game.General.Commands
             var creatures = Object.FindObjectsOfType<CreatureView>();
             foreach (var creatureView in creatures)
             {
-                creatureView.ApplyDices();
+                creatureView.ResetCreature();
             }
 
             return UniTask.CompletedTask;

@@ -1,7 +1,6 @@
 namespace Game.General
 {
     using System.Collections.Generic;
-    using Effects;
 
     public class Turn
     {

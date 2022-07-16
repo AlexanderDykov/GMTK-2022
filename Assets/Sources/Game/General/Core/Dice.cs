@@ -14,8 +14,16 @@ namespace Game.General
 
         public DiceType Random()
         {
-            int rndIndex = UnityEngine.Random.Range(0, _diceTypes.Count);
-            return _diceTypes[rndIndex];
+            return _diceTypes.RandomElement();
+        }
+    }
+
+    public static class ListExtensions
+    {
+        public static T RandomElement<T>(this List<T> elements)
+        {
+            int rndIndex = UnityEngine.Random.Range(0, elements.Count);
+            return elements[rndIndex];
         }
     }
 }

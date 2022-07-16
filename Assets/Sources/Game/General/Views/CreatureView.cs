@@ -15,6 +15,12 @@ namespace Game.General.Views
         [Inject]
         private IArenaService arenaService;
 
+        [Inject]
+        private IPlayerProvider playerProvider;
+
+        [Inject]
+        private IEnemyProvider enemyProvider;
+
         [SerializeField]
         private Slider healthBar;
 
@@ -27,30 +33,47 @@ namespace Game.General.Views
         [SerializeField]
         private BodyPartView _bodyPartViewPrefab;
 
+        [SerializeField]
+        private bool isPlayer;
+
         private Creature _creature;
-        string id = Guid.NewGuid().ToString();
+
+        private string ID => isPlayer ? playerProvider.Id : enemyProvider.Id;
         private CreatureConfig _creatureConfig;
+
+        private List<BodyPartView> bodyParts = new List<BodyPartView>();
 
         public void ApplyConfig(CreatureConfig creatureConfig)
         {
-            _creature = new Creature(creatureConfig.MaxHealth, id);
+            _creature = new Creature(creatureConfig.MaxHealth, ID);
             _creature.CurrentHealthChanged += OnCurrentHealthChanged;
             _creatureConfig = creatureConfig;
 
-            arenaService.Add(id, _creature);
+            arenaService.Add(ID, _creature);
             healthBar.maxValue = creatureConfig.MaxHealth;
             UpdateHealthBar(creatureConfig.MaxHealth);
 
             foreach (var creatureConfigBodyPart in creatureConfig.BodyParts)
             {
                 var bodyPart = Instantiate(_bodyPartViewPrefab, bodiesParent);
-                bodyPart.Create(creatureConfigBodyPart, id);
+                bodyParts.Add(bodyPart);
+                bodyPart.Create(creatureConfigBodyPart, ID);
             }
 
             ApplyDices();
         }
 
-        public void ApplyDices()
+        public void ResetCreature()
+        {
+            ApplyDices();
+            foreach (var bodyPartView in bodyParts)
+            {
+                bodyPartView.ResetBodyPart();
+            }
+        }
+
+
+        private void ApplyDices()
         {
             if (_dicesPanel != null)
             {
@@ -60,7 +83,7 @@ namespace Game.General.Views
                     dices.Add(creatureConfigDice.Random());
                 }
 
-                _dicesPanel.Setup(id, dices);
+                _dicesPanel.Setup(ID, dices);
             }
         }
 
