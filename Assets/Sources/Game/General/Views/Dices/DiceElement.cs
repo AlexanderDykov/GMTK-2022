@@ -17,11 +17,17 @@ namespace Game.General.Views
         [SerializeField]
         private Image border;
 
+        [SerializeField]
+        private Animator animator;
+
         [Inject]
         private IDiceIconProvider _diceIconProvider;
 
         [Inject]
         private IDiceSelector _diceSelector;
+
+        [Inject]
+        private IStartTurnService startTurnService;
 
         private Transform initialParent;
 
@@ -34,6 +40,11 @@ namespace Game.General.Views
         {
             _diceSelector.ElementSelected += OnElementSelected;
             _diceSelector.ElementDeselected += OnElementDeselected;
+            startTurnService.TurnStarted += OnTurnStarted;
+        }
+
+        private void OnTurnStarted()
+        {
         }
 
         private void OnElementDeselected()
@@ -54,6 +65,11 @@ namespace Game.General.Views
 
         public UniTask SpeenAnimation()
         {
+            if (animator != null)
+            {
+                animator.SetTrigger("DiceRoll");
+            }
+
             return UniTask.CompletedTask;
         }
 
@@ -69,6 +85,7 @@ namespace Game.General.Views
         {
             _diceSelector.ElementSelected -= OnElementSelected;
             _diceSelector.ElementDeselected -= OnElementDeselected;
+            startTurnService.TurnStarted -= OnTurnStarted;
         }
 
         public void ResetParent()

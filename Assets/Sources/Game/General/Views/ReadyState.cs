@@ -34,6 +34,9 @@ namespace Game.General.Views
         [Inject]
         private IStartGameService startGameService;
 
+        [Inject]
+        private IStartTurnService startTurnService;
+
         private void Start()
         {
             DisableAllButtons();
@@ -84,7 +87,7 @@ namespace Game.General.Views
                             {
                                 foreach (var moveDiceType in move.DiceTypes)
                                 {
-                                    bodyPartView.AddEnemyDices(moveDiceType, creature.Config.SpriteName);
+                                    bodyPartView.AddEnemyDices(moveDiceType, creature.Id, creature.Config.SpriteName);
                                 }
                             }
                         }
@@ -123,6 +126,8 @@ namespace Game.General.Views
             }
 
             await new ResetTurnCommand().Execute();
+
+            startTurnService.StartTurn();
             button.gameObject.SetActive(true);
         }
 

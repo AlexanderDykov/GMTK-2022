@@ -23,6 +23,9 @@ namespace Game.General.Services
         [Inject]
         private IArenaService arenaService;
 
+        [Inject]
+        private IStartTurnService startTurnService;
+
         public async UniTask Start()
         {
             loaderService.Show();
@@ -30,6 +33,7 @@ namespace Game.General.Services
             await new LoadSceneCommand("GameScene").Execute();
             await new SetupPlayerCommand(playerProvider, arenaService).Execute();
             await new SetupCreaturesCommand(enemyProvider).Execute();
+            startTurnService.StartTurn();
             loaderService.Hide();
         }
     }

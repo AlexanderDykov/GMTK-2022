@@ -15,6 +15,7 @@ namespace Game
             Container.Bind<ILoaderService>().To<LoaderService>().AsSingle();
             Container.Bind<IStartGameService>().To<StartGameService>().AsSingle();
             Container.Bind<ISpellVisualizerService>().To<SpellVisualizerService>().AsSingle();
+            Container.Bind<IStartTurnService>().To<StartTurnService>().AsSingle();
         }
     }
 }

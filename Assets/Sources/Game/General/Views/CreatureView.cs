@@ -3,6 +3,8 @@ namespace Game.General.Views
     using System;
     using System.Collections.Generic;
     using BodyParts;
+    using Cysharp.Threading.Tasks;
+    using DG.Tweening;
     using Effects;
     using Services;
     using TMPro;
@@ -64,13 +66,20 @@ namespace Game.General.Views
             ApplyDices();
         }
 
-        public void ResetCreature()
+        public async void ResetCreature()
         {
             ApplyDices();
             foreach (var bodyPartView in bodyParts)
             {
                 bodyPartView.ResetBodyPart();
             }
+
+            await UniTask.WaitForEndOfFrame();
+            bodiesParent.gameObject.SetActive(false);
+            bodiesParent.gameObject.SetActive(true);
+            var cache = bodiesParent.transform.position;
+            bodiesParent.DOMove(cache, 0f);
+            Canvas.ForceUpdateCanvases();
         }
 
 

@@ -16,6 +16,9 @@ namespace Game.General.Views.BodyParts
         [Inject]
         private IPlayerProvider playerProvider;
 
+        [Inject]
+        private IEnemyProvider enemyProvider;
+
         [SerializeField]
         private Transform parentForDices;
 
@@ -38,7 +41,7 @@ namespace Game.General.Views.BodyParts
         private Image enemyIcon;
 
         [SerializeField]
-        private Image holderIcon;
+        private Animator animator;
 
         private BodyPart _bodyPart;
 
@@ -71,11 +74,10 @@ namespace Game.General.Views.BodyParts
             _id = creature.Id;
             _bodyPart = bodyPart;
 
-            enemyIcon.sprite =
-                Resources.Load<Sprite>(creature.Id == playerProvider.Id ? creature.Config.SpriteName : "Player");
-            holderIcon.sprite =
-                Resources.Load<Sprite>(creature.Config.SpriteName);
-            bg.sprite = creature.Id == playerProvider.Id ? shield : sword;
+            var isPlayerPart = creature.Id == playerProvider.Id;
+           
+            bg.sprite = isPlayerPart ? shield : sword;
+
             _dices.Clear();
         }
 
@@ -109,12 +111,19 @@ namespace Game.General.Views.BodyParts
             _selector.ElementRemovedToHand -= OnElementRemovedToHand;
         }
 
-        public void AddEnemyDices(DiceType dices, string enemySpriteName)
+        public void AddEnemyDices(DiceType dices, string enemyId, string enemySpriteName)
         {
+            var isPlayerPart = enemyId == playerProvider.Id;
+            enemyIcon.sprite =
+                Resources.Load<Sprite>(isPlayerPart ? enemyProvider.Current.SpriteName : enemySpriteName);
             parentForEnemyDices.gameObject.SetActive(true);
             var diceElement = Instantiate(prefab, parentForEnemyDices);
             diceElement.Apply(dices, "");
             enemies.Add(diceElement);
+            if (animator != null)
+            {
+                animator.SetTrigger("Fight");
+            }
         }
 
         public void Add(DiceElement selectorSelected)
