@@ -66,7 +66,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Use COMBO to make more damage:\n<b>Attack:</b>\n<sprite=0>x<sprite=0>=<sprite=11>
+  m_text: "To protect your hero or attack your opponent - move the dice into the
+    appropriate slot. Damage can only be inflicted on the slot to which you moved
+    the attack dice. Use \"right click\" to return the dice back to your hand.\nUse
+    COMBO to make more damage:\n<b>Attack:</b>\n<sprite=0>x<sprite=0>=<sprite=11>
     +10 to attack\n<sprite=1>x<sprite=1>=<sprite=6> double damage - 8 to attack\n<sprite=2>x<sprite=2>=<sprite=9>
     breaks through all defense - 6 to attack\n<sprite=3>x<sprite=3>=<sprite=8> adds
     damage of the smallest dice in defense \u2013 8 to attack + bonus"
@@ -96,7 +99,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.3
+  m_fontSize: 18
   m_fontSizeBase: 38.79
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -381,7 +384,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.95
+  m_fontSize: 18
   m_fontSizeBase: 48.2
   m_fontWeight: 400
   m_enableAutoSizing: 1

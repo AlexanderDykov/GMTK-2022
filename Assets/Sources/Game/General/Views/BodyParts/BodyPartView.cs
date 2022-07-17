@@ -30,10 +30,16 @@ namespace Game.General.Views.BodyParts
 
         [SerializeField]
         private Sprite shield;
-        
+
         [SerializeField]
         private Sprite sword;
-        
+
+        [SerializeField]
+        private Image enemyIcon;
+
+        [SerializeField]
+        private Image holderIcon;
+
         private BodyPart _bodyPart;
 
         private string _id;
@@ -44,7 +50,7 @@ namespace Game.General.Views.BodyParts
 
         public BodyPart BodyPart => _bodyPart;
         public string Id => _id;
-        
+
         private void Start()
         {
             _selector.ElementRemovedToHand += OnElementRemovedToHand;
@@ -60,11 +66,16 @@ namespace Game.General.Views.BodyParts
             _dices.Remove(diceElement);
         }
 
-        public void Create(BodyPart bodyPart, string id)
+        public void Create(BodyPart bodyPart, Creature creature)
         {
-            _id = id;
+            _id = creature.Id;
             _bodyPart = bodyPart;
-            bg.sprite = id == playerProvider.Id ? shield : sword;
+
+            enemyIcon.sprite =
+                Resources.Load<Sprite>(creature.Id == playerProvider.Id ? creature.Config.SpriteName : "Player");
+            holderIcon.sprite =
+                Resources.Load<Sprite>(creature.Config.SpriteName);
+            bg.sprite = creature.Id == playerProvider.Id ? shield : sword;
             _dices.Clear();
         }
 
@@ -98,7 +109,7 @@ namespace Game.General.Views.BodyParts
             _selector.ElementRemovedToHand -= OnElementRemovedToHand;
         }
 
-        public void AddEnemyDices(DiceType dices)
+        public void AddEnemyDices(DiceType dices, string enemySpriteName)
         {
             parentForEnemyDices.gameObject.SetActive(true);
             var diceElement = Instantiate(prefab, parentForEnemyDices);
@@ -110,17 +121,20 @@ namespace Game.General.Views.BodyParts
         {
             _dices.Add(selectorSelected);
             //todo move selectorSelected to this transform position
-            selectorSelected.transform.SetParent( parentForDices);
+            selectorSelected.transform.SetParent(parentForDices);
             selectorSelected.transform.position = transform.position;
         }
 
         public void ResetBodyPart()
         {
             parentForEnemyDices.gameObject.SetActive(false);
-            foreach (var diceElement in enemies)
+            for (var index = enemies.Count - 1; index >= 0; index--)
             {
+                var diceElement = enemies[index];
                 Destroy(diceElement.gameObject);
+                enemies.RemoveAt(index);
             }
+
             _dices.Clear();
         }
     }

@@ -58,7 +58,7 @@ namespace Game.General.Views
             {
                 var bodyPart = Instantiate(_bodyPartViewPrefab, bodiesParent);
                 bodyParts.Add(bodyPart);
-                bodyPart.Create(creatureConfigBodyPart, _creature.Id);
+                bodyPart.Create(creatureConfigBodyPart, _creature);
             }
 
             ApplyDices();

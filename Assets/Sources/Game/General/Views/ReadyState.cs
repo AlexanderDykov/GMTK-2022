@@ -84,7 +84,7 @@ namespace Game.General.Views
                             {
                                 foreach (var moveDiceType in move.DiceTypes)
                                 {
-                                    bodyPartView.AddEnemyDices(moveDiceType);
+                                    bodyPartView.AddEnemyDices(moveDiceType, creature.Config.SpriteName);
                                 }
                             }
                         }

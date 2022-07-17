@@ -44,7 +44,7 @@ namespace Game.General
 
                     effects[effect.Order].Add(effect);
                 }
-
+                
                 foreach (var effect in effects.Values.SelectMany(effectList => effectList))
                 {
                     if (effect.SpellType != SpellType.None)
