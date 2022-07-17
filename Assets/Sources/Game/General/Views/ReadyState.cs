@@ -31,30 +31,9 @@ namespace Game.General.Views
 
         private async void OnReadyButtonClick()
         {
-            var assignedMoves = playerAssignedMoveCollector.CreateAssignedMove();
-            var enemyAssignedMoves = enemyAssignedMoveCollector.CreateAssignedMove();
-
-            foreach (var enemyAssignedMove in enemyAssignedMoves)
-            {
-                var duplicate = assignedMoves.Keys.FirstOrDefault(x =>
-                    x.Id == enemyAssignedMove.Key.Id && x.BodyPart == enemyAssignedMove.Key.BodyPart);
-
-                if (duplicate != null)
-                {
-                    var duplicateWithValue = assignedMoves.FirstOrDefault(x =>
-                        x.Key.Id == enemyAssignedMove.Key.Id && x.Key.BodyPart == enemyAssignedMove.Key.BodyPart);
-                    duplicateWithValue.Value.AddRange(enemyAssignedMove.Value);
-                }
-                else
-                {
-                    assignedMoves.Add(enemyAssignedMove.Key, enemyAssignedMove.Value);
-                }
-            }
-
-            var turn = new Turn
-            {
-                AssignedMoves = assignedMoves
-            };
+            var turn = new Turn();
+            turn.AssignMoves(playerAssignedMoveCollector.CreateAssignedMove());
+            turn.AssignMoves(enemyAssignedMoveCollector.CreateAssignedMove());
             arenaService.ApplyTurn(turn);
             await new ResetTurnCommand().Execute();
         }
