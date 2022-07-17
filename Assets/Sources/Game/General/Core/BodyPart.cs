@@ -3,7 +3,12 @@ namespace Game.General
     public enum BodyPart
     {
         Head,
+        Head1,
+        Head2,
         Body,
-        Legs
+        LeftLeg,
+        RightLeg,
+        LeftHand,
+        RightHand
     }
 }

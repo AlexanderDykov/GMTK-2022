@@ -19,28 +19,132 @@ namespace Game.General.Services
     {
         public CreatureConfig Current => currentIndex > enemies.Count - 1 ? null : enemies[currentIndex];
 
-        private List<CreatureConfig> enemies = new List<CreatureConfig>()
+        private static Dice MakeSimpleDice()
         {
-            new CreatureConfig
+            return new Dice(new List<DiceType>
             {
+                One,
+                Two,
+                Three,
+                Four,
+                Five,
+                Six,
+            });
+        }
+
+        private static CreatureConfig MakeRat()
+        {
+            return new CreatureConfig
+            {
+                SpriteName = "rat",
                 BodyParts = new List<BodyPart>
                 {
                     BodyPart.Head
                 },
                 Dices = new List<Dice>
                 {
-                    new(new List<DiceType>
-                    {
-                        One,
-                        Two,
-                        Three,
-                        Four,
-                        Five,
-                        Six,
-                    })
+                    MakeSimpleDice()
                 },
                 MaxHealth = 20
-            }
+            };
+        }
+
+        private static CreatureConfig MakeGoblin()
+        {
+            return new CreatureConfig
+            {
+                SpriteName = "goblin",
+                BodyParts = new List<BodyPart>
+                {
+                    BodyPart.Head,
+                    BodyPart.Body,
+                },
+                Dices = new List<Dice>
+                {
+                    MakeSimpleDice(),
+                    MakeSimpleDice()
+                },
+                MaxHealth = 36
+            };
+        }
+
+        private static CreatureConfig MakeOrk()
+        {
+            return new CreatureConfig
+            {
+                SpriteName = "ork",
+                BodyParts = new List<BodyPart>
+                {
+                    BodyPart.Head,
+                    BodyPart.Body,
+                    BodyPart.LeftHand,
+                    BodyPart.RightHand,
+                },
+                Dices = new List<Dice>
+                {
+                    MakeSimpleDice(),
+                    MakeSimpleDice()
+                },
+                MaxHealth = 54
+            };
+        }
+
+        private static CreatureConfig MakeTroll()
+        {
+            return new CreatureConfig
+            {
+                SpriteName = "troll",
+                BodyParts = new List<BodyPart>
+                {
+                    BodyPart.Head,
+                    BodyPart.Body,
+                    BodyPart.LeftHand,
+                    BodyPart.RightHand,
+                    BodyPart.LeftLeg,
+                },
+                Dices = new List<Dice>
+                {
+                    MakeSimpleDice(),
+                    MakeSimpleDice(),
+                    MakeSimpleDice()
+                },
+                MaxHealth = 76
+            };
+        }
+
+        private static CreatureConfig MakeHydra()
+        {
+            return new CreatureConfig
+            {
+                SpriteName = "hydra",
+                BodyParts = new List<BodyPart>
+                {
+                    BodyPart.Head,
+                    BodyPart.Head1,
+                    BodyPart.Head2,
+                    BodyPart.Body,
+                    BodyPart.LeftLeg,
+                    BodyPart.RightLeg
+                },
+                Dices = new List<Dice>
+                {
+                    MakeSimpleDice(),
+                    MakeSimpleDice(),
+                    MakeSimpleDice(),
+                    MakeSimpleDice(),
+                    MakeSimpleDice()
+                },
+                MaxHealth = 120
+            };
+        }
+
+        private List<CreatureConfig> enemies = new List<CreatureConfig>()
+        {
+            MakeRat(),
+            MakeGoblin(),
+            MakeOrk(),
+            MakeTroll(),
+            MakeHydra()
         };
 
         private int currentIndex = -1;

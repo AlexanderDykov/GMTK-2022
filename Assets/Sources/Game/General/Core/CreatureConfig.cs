@@ -6,6 +6,8 @@ namespace Game.General
 
     public class CreatureConfig
     {
+        public string SpriteName;
+
         public List<BodyPart> BodyParts;
 
         public List<Dice> Dices;
