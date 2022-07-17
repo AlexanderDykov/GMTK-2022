@@ -35,27 +35,37 @@ namespace Game.General.Services
             BodyParts = new List<BodyPart>
             {
                 BodyPart.Head,
-                BodyPart.Body
+                BodyPart.Body,
+                BodyPart.LeftLeg
             },
             Dices = new List<Dice>
             {
                 new(new List<DiceType>
                 {
                     One,
-                    // Two,
-                    // Three,
-                    // Four,
-                    // Five,
-                    // Six,
+                    Two,
+                    Three,
+                    Four,
+                    Five,
+                    Six,
                 }),
                 new(new List<DiceType>
                 {
                     One,
-                    // Two,
-                    // Three,
-                    // Four,
-                    // Five,
-                    // Six,
+                    Two,
+                    Three,
+                    Four,
+                    Five,
+                    Six,
+                }),
+                new(new List<DiceType>
+                {
+                    One,
+                    Two,
+                    Three,
+                    Four,
+                    Five,
+                    Six,
                 })
             },
             MaxHealth = 100,
