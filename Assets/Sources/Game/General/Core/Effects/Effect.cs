@@ -87,7 +87,7 @@ namespace Game.General.Effects
 
     public class OneOneComboEffect : Effect
     {
-        public override SpellType SpellType => SpellType.Fire;
+        public override SpellType SpellType => SpellType.Water;
 
         public OneOneComboEffect(Move move) : base(move)
         {
@@ -123,7 +123,7 @@ namespace Game.General.Effects
 
     public class TwoTwoComboEffect : Effect
     {
-        public override SpellType SpellType => SpellType.Water;
+        public override SpellType SpellType => SpellType.Fire;
         public TwoTwoComboEffect(Move move) : base(move)
         {
         }
