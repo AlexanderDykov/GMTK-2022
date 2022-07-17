@@ -18,14 +18,14 @@ namespace Game.General
 
         public void ApplyTurn(Turn turn)
         {
-            foreach (var targetAssignedMoves in turn.AssignedMoves)
+            foreach (var movesPerTarget in turn.AssignedMoves)
             {
-                var target = targetAssignedMoves.Key;
+                var target = movesPerTarget.Key;
                 var creature = Creatures[target.Id];
                 var attackRecord = new AttackRecord();
                 var effects = new Dictionary<EffectOrder, List<Effect>>();
-                var allAssignedMoves = targetAssignedMoves.Value;
-                var enumerable = allAssignedMoves.Select(move => _spellBook.Find(move)).ToList();
+                var moves = movesPerTarget.Value;
+                var enumerable = moves.Select(move => _spellBook.Find(move)).ToList();
                 foreach (var effect in enumerable)
                 {
                     if (!effects.ContainsKey(effect.Order))
@@ -38,7 +38,7 @@ namespace Game.General
 
                 foreach (var effect in effects.Values.SelectMany(effectList => effectList))
                 {
-                    effect.Execute(target, allAssignedMoves, attackRecord, effects);
+                    effect.Execute(target, moves, attackRecord, effects);
                 }
 
                 var damage = attackRecord.Calculate();

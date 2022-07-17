@@ -24,9 +24,29 @@ namespace Game.General
         public Effect Find(Move move)
         {
             return _spells
-                .Where(x => x.Key.Count == move.DiceTypes.Count && x.Key.All(move.DiceTypes.Contains))
+                .Where(x => IsMatches(x.Key, move.DiceTypes))
                 .Select(x => x.Value.EffectMaker(move))
                 .FirstOrDefault() ?? new DefaultEffect(move);
+        }
+
+        private static bool IsMatches(List<DiceType> pattern, List<DiceType> candidate)
+        {
+
+            if (pattern.Count != candidate.Count)
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < pattern.Count; i++)
+                {
+                    if (pattern[i] != candidate[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }
