@@ -43,6 +43,8 @@ namespace Game.General.Views.BodyParts
         [SerializeField]
         private Animator animator;
 
+        public Transform shieldParent;
+
         private BodyPart _bodyPart;
 
         private string _id;

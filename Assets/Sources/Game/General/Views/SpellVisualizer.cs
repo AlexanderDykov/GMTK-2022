@@ -9,6 +9,9 @@ namespace Game.General.Views
         [SerializeField]
         private Image[] _icons;
 
+        [SerializeField]
+        private Animator animator;
+
         public void Setup(Sprite icon)
         {
             gameObject.SetActive(true);
@@ -17,6 +20,7 @@ namespace Game.General.Views
                 _icons[i].sprite = icon;
             }
 
+            animator.SetTrigger("DiceRoll");
             DOTween.Sequence().SetDelay(0.6f).OnComplete(() =>
             {
                 gameObject.SetActive(false);

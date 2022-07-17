@@ -32,7 +32,7 @@ namespace Game.General.Services
                 view.transform.position = position;
                 //
             }
-            return UniTask.CompletedTask;
+            return UniTask.Delay(600);
         }
     }
 }

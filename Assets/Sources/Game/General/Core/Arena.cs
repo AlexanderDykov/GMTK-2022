@@ -57,8 +57,9 @@ namespace Game.General
 
                     if (effect.SpellType != SpellType.None)
                     {
+                        // var transformPosition =new Vector2(bodyPartView.transform.position.x, bodyPartView.transform.position.y);
                         await _spellVisualizerService.Show(effect, target.Id != effect.Move.SourceId,
-                            bodyPartView.transform.position);
+                            bodyPartView.shieldParent.position);
                     }
 
                     bodyPartView.PlayAttack();
@@ -67,6 +68,7 @@ namespace Game.General
                 }
 
                 _soundService.Play(SFX.Attack);
+                await UniTask.Delay(200);
 
                 var damage = attackRecord.Calculate();
                 if (damage > 0)

@@ -1233,7 +1233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 90, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4144372700791290897
@@ -1409,6 +1409,7 @@ MonoBehaviour:
   sword: {fileID: 21300000, guid: fc78e89ccbcbb4389b3cef7603d7b639, type: 3}
   enemyIcon: {fileID: 1776032643235955753}
   animator: {fileID: 5212644165418733302}
+  shieldParent: {fileID: 7216269577303853311}
 --- !u!114 &2708560246979882044
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -151,10 +151,10 @@ namespace Game.General.Services
 
         private List<CreatureConfig> enemies = new List<CreatureConfig>()
         {
-            // MakeRat(),
-            // MakeGoblin(),
+            MakeRat(),
+            MakeGoblin(),
             // MakeOrk(),
-            // MakeTroll(),
+            MakeTroll(),
             MakeHydra()
         };
 

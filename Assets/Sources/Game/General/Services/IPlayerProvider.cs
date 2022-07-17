@@ -58,7 +58,7 @@ namespace Game.General.Services
                     // Six,
                 })
             },
-            MaxHealth = 20,
+            MaxHealth = 100,
             ChooseMovesStrategy = new PlayerChooseMovesStrategy()
         };
 
