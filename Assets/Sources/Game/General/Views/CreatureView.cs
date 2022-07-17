@@ -39,15 +39,13 @@ namespace Game.General.Views
         private Creature _creature;
 
         private string ID => isPlayer ? playerProvider.Id : enemyProvider.Id;
-        private CreatureConfig _creatureConfig;
 
         private List<BodyPartView> bodyParts = new List<BodyPartView>();
 
         public void ApplyConfig(CreatureConfig creatureConfig)
         {
-            _creature = new Creature(creatureConfig.MaxHealth, ID);
+            _creature = new Creature(creatureConfig, ID);
             _creature.CurrentHealthChanged += OnCurrentHealthChanged;
-            _creatureConfig = creatureConfig;
 
             arenaService.Add(ID, _creature);
             healthBar.maxValue = creatureConfig.MaxHealth;
@@ -78,7 +76,7 @@ namespace Game.General.Views
             if (_dicesPanel != null)
             {
                 var dices = new List<DiceType>();
-                foreach (var creatureConfigDice in _creatureConfig.Dices)
+                foreach (var creatureConfigDice in _creature.Config.Dices)
                 {
                     dices.Add(creatureConfigDice.Random());
                 }

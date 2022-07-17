@@ -19,11 +19,14 @@ namespace Game.General
     {
         private int _currentHealth;
 
+        public readonly CreatureConfig Config;
+
         public string Id { get; private set; }
 
-        public Creature(int currentHealth, string id)
+        public Creature(CreatureConfig config, string id)
         {
-            _currentHealth = currentHealth;
+            _currentHealth = config.MaxHealth;
+            Config = config;
             Id = id;
         }
 
@@ -34,6 +37,7 @@ namespace Game.General
         public void ApplyDamage(int damage)
         {
             _currentHealth -= damage;
+            Debug.LogError("Creature " + Id + " received = " + damage + " and health = " + _currentHealth);
             _currentHealth = Math.Max(0, _currentHealth);
             CurrentHealthChanged?.Invoke(_currentHealth);
 
