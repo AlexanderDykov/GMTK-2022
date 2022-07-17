@@ -33,7 +33,7 @@ namespace Game.General.Services
         {
             uiBlocker.Block = true;
             loaderService.Show();
-            // await new UnloadSceneCommand("GameScene").Execute();
+            await new UnloadSceneCommand("GameScene").Execute();
             await new LoadSceneCommand("GameScene").Execute();
             await new SetupPlayerCommand(playerProvider, arenaService).Execute();
             await new SetupCreaturesCommand(enemyProvider).Execute();

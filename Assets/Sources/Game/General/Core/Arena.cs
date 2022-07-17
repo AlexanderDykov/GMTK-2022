@@ -16,9 +16,12 @@ namespace Game.General
 
         private ISpellVisualizerService _spellVisualizerService;
 
-        public Arena(SpellBook spellBook, ISpellVisualizerService spellVisualizerService)
+        private ISoundService _soundService;
+
+        public Arena(SpellBook spellBook, ISpellVisualizerService spellVisualizerService, ISoundService soundService)
         {
             SpellBook = spellBook;
+            _soundService = soundService;
             _spellVisualizerService = spellVisualizerService;
         }
 
@@ -54,16 +57,22 @@ namespace Game.General
                             Vector2.zero);
                     }
 
+                    var bodyPartView = Object.FindObjectsOfType<BodyPartView>()
+                        .First(x => x.Id == target.Id && x.BodyPart == target.BodyPart);
+                    bodyPartView.PlayAttack();
+
                     effect.Execute(target, moves, attackRecord, effects);
                 }
 
-                await UniTask.Delay(1000);
+                _soundService.Play(SFX.Attack);
 
                 var damage = attackRecord.Calculate();
                 if (damage > 0)
                 {
                     creature.ApplyDamage(damage);
                 }
+
+                await UniTask.Delay(1000);
             }
 
             var notDeadList = new Dictionary<string, Creature>();

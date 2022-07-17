@@ -14,7 +14,10 @@ namespace Game.General.Commands
 
         public async UniTask Execute()
         {
-            await SceneManager.UnloadSceneAsync(sceneName);
+            if(SceneManager.sceneCount > 1)
+            {
+                await SceneManager.UnloadSceneAsync(sceneName);
+            }
         }
     }
 }

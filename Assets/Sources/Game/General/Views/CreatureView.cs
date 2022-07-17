@@ -18,6 +18,9 @@ namespace Game.General.Views
         [Inject]
         private IArenaService arenaService;
 
+        [Inject]
+        private ISoundService soundService;
+
         [SerializeField]
         private Image icon;
 
@@ -92,7 +95,7 @@ namespace Game.General.Views
                 {
                     dices.Add(creatureConfigDice.Random());
                 }
-
+                soundService.Play(SFX.DiceRoll);
                 _dicesPanel.Setup(_creature.Id, dices);
             }
         }

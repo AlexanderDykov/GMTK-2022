@@ -14,11 +14,13 @@ namespace Game.General.Views
     {
         [Inject]
         private IDiceSelector _diceSelector;
-
-
+        
         [Inject]
         private IUIBlocker uiBlocker;
 
+        [Inject]
+        private ISoundService soundService;
+        
 
         [SerializeField]
         GraphicRaycaster m_Raycaster;
@@ -66,6 +68,7 @@ namespace Game.General.Views
                             if (selectorSelected != null)
                             {
                                 bodyPart.Add(_diceSelector.Selected);
+                                soundService.Play(SFX.DicePlace);
                                 _diceSelector.Deselect();
                             }
                         }
@@ -114,6 +117,8 @@ namespace Game.General.Views
 
                 var element = diceElement.GetComponent<DiceElement>();
 
+                
+                soundService.Play(SFX.DicePlace);
                 _diceSelector.Deselect();
                 element.ResetParent();
                 _diceSelector.Remove(element);

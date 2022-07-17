@@ -21,9 +21,9 @@ namespace Game.General.Services
     {
         private readonly Arena _arena;
 
-        public ArenaService(ISpellBookService spellBookService, ISpellVisualizerService spellVisualizerService)
+        public ArenaService(ISpellBookService spellBookService, ISpellVisualizerService spellVisualizerService, ISoundService soundService)
         {
-            _arena = new Arena(spellBookService.Get(), spellVisualizerService);
+            _arena = new Arena(spellBookService.Get(), spellVisualizerService, soundService);
         }
 
         public Arena Get()

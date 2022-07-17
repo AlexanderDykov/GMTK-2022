@@ -120,6 +120,10 @@ namespace Game.General.Views.BodyParts
             var diceElement = Instantiate(prefab, parentForEnemyDices);
             diceElement.Apply(dices, "");
             enemies.Add(diceElement);
+            
+        }
+        public void PlayAttack()
+        {
             if (animator != null)
             {
                 animator.SetTrigger("Fight");

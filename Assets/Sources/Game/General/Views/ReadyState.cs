@@ -6,6 +6,7 @@ namespace Game.General.Views
     using Commands;
     using Cysharp.Threading.Tasks;
     using Services;
+    using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
     using Zenject;
@@ -21,6 +22,12 @@ namespace Game.General.Views
 
         [SerializeField]
         private Button nextCreature;
+
+        [SerializeField]
+        private GameObject endGamePanel;
+
+        [SerializeField]
+        private TMP_Text winLoseLable;
 
         [Inject]
         private IArenaService arenaService;
@@ -115,18 +122,24 @@ namespace Game.General.Views
                     enemyProvider.Next();
                     if (enemyProvider.Current == null)
                     {
+                        winLoseLable.text = "You win this game!";
                         goToMenu.gameObject.SetActive(true);
+                        endGamePanel.gameObject.SetActive(true);
                     }
                     else
                     {
+                        winLoseLable.text = "You win this round!";
+                        endGamePanel.gameObject.SetActive(true);
                         nextCreature.gameObject.SetActive(true);
                     }
                 }
                 else
                 {
                     arenaService.ClearArena();
+                    winLoseLable.text = "You loose!";
                     Debug.LogError("You loose");
                     goToMenu.gameObject.SetActive(true);
+                    endGamePanel.gameObject.SetActive(true);
                 }
 
                 return;

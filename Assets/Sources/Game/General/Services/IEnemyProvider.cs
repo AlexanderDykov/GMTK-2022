@@ -132,7 +132,6 @@ namespace Game.General.Services
                 {
                     BodyPart.Head,
                     BodyPart.Head1,
-                    BodyPart.Head2,
                     BodyPart.Body,
                     BodyPart.LeftLeg,
                     BodyPart.RightLeg
@@ -152,10 +151,10 @@ namespace Game.General.Services
 
         private List<CreatureConfig> enemies = new List<CreatureConfig>()
         {
-            MakeRat(),
-            MakeGoblin(),
+            // MakeRat(),
+            // MakeGoblin(),
             // MakeOrk(),
-            MakeTroll(),
+            // MakeTroll(),
             MakeHydra()
         };
 
