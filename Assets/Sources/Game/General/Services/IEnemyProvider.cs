@@ -68,7 +68,7 @@ namespace Game.General.Services
                     MakeSimpleDice()
                 },
                 MaxHealth = 36,
-                ChooseMovesStrategy = new RandomChooseMovesStrategy()
+                ChooseMovesStrategy = new GoblinStrategy()
             };
         }
 

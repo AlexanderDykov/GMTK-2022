@@ -11,13 +11,13 @@ namespace Game.General
     {
         public Dictionary<string, Creature> Creatures = new Dictionary<string, Creature>();
 
-        private readonly SpellBook _spellBook;
+        public readonly SpellBook SpellBook;
 
         private ISpellVisualizerService _spellVisualizerService;
 
         public Arena(SpellBook spellBook, ISpellVisualizerService spellVisualizerService)
         {
-            _spellBook = spellBook;
+            SpellBook = spellBook;
             _spellVisualizerService = spellVisualizerService;
         }
 
@@ -32,7 +32,7 @@ namespace Game.General
                 var moves = movesPerTarget.Value;
                 var enumerable = moves.Select(move =>
                 {
-                    var effect = _spellBook.Find(move);
+                    var effect = SpellBook.Find(move);
                     return effect;
                 }).ToList();
                 foreach (var effect in enumerable)
