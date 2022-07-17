@@ -21,14 +21,17 @@ namespace Game.General.Services
 
         public UniTask Show(Effect spell, bool attack, Vector2 position)
         {
-            // if (view == null)
-            // {
-            //     view = Resources.Load<SpellVisualizer>("SpellView");
-            // }
-            //
-            // var instance = Object.Instantiate(view, position, Quaternion.identity);
-            // instance.Setup(spellIconProvider.GetIcon(spell, attack));
-            //
+            if (view == null)
+            {
+                view = Object.FindObjectOfType<SpellVisualizer>();
+            }
+
+            if (view != null)
+            {
+                view.Setup(spellIconProvider.GetIcon(spell, attack));
+                view.transform.position = position;
+                //
+            }
             return UniTask.CompletedTask;
         }
     }

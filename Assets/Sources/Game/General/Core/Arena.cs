@@ -51,14 +51,16 @@ namespace Game.General
 
                 foreach (var effect in effects.Values.SelectMany(effectList => effectList))
                 {
+                    var bodyPartView = Object.FindObjectsOfType<BodyPartView>()
+                        .First(x => x.Id == target.Id && x.BodyPart == target.BodyPart);
+
+
                     if (effect.SpellType != SpellType.None)
                     {
                         await _spellVisualizerService.Show(effect, target.Id != effect.Move.SourceId,
-                            Vector2.zero);
+                            bodyPartView.transform.position);
                     }
 
-                    var bodyPartView = Object.FindObjectsOfType<BodyPartView>()
-                        .First(x => x.Id == target.Id && x.BodyPart == target.BodyPart);
                     bodyPartView.PlayAttack();
 
                     effect.Execute(target, moves, attackRecord, effects);
