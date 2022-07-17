@@ -38,7 +38,8 @@ namespace Game.General.Services
         {
             return new CreatureConfig
             {
-                SpriteName = "rat",
+                Name = "rat",
+                SpriteName = "Rat",
                 BodyParts = new List<BodyPart>
                 {
                     BodyPart.Head
@@ -56,7 +57,8 @@ namespace Game.General.Services
         {
             return new CreatureConfig
             {
-                SpriteName = "goblin",
+                Name = "goblin",
+                SpriteName = "Goblin",
                 BodyParts = new List<BodyPart>
                 {
                     BodyPart.Head,
@@ -72,33 +74,35 @@ namespace Game.General.Services
             };
         }
 
-        private static CreatureConfig MakeOrk()
-        {
-            return new CreatureConfig
-            {
-                SpriteName = "ork",
-                BodyParts = new List<BodyPart>
-                {
-                    BodyPart.Head,
-                    BodyPart.Body,
-                    BodyPart.LeftHand,
-                    BodyPart.RightHand,
-                },
-                Dices = new List<Dice>
-                {
-                    MakeSimpleDice(),
-                    MakeSimpleDice()
-                },
-                MaxHealth = 54,
-                ChooseMovesStrategy = new RandomChooseMovesStrategy()
-            };
-        }
+        // private static CreatureConfig MakeOrk()
+        // {
+        //     return new CreatureConfig
+        //     {
+        //         Name = "ork",
+        //         SpriteName = "Ork",
+        //         BodyParts = new List<BodyPart>
+        //         {
+        //             BodyPart.Head,
+        //             BodyPart.Body,
+        //             BodyPart.LeftHand,
+        //             BodyPart.RightHand,
+        //         },
+        //         Dices = new List<Dice>
+        //         {
+        //             MakeSimpleDice(),
+        //             MakeSimpleDice()
+        //         },
+        //         MaxHealth = 54,
+        //         ChooseMovesStrategy = new RandomChooseMovesStrategy()
+        //     };
+        // }
 
         private static CreatureConfig MakeTroll()
         {
             return new CreatureConfig
             {
-                SpriteName = "troll",
+                Name = "troll",
+                SpriteName = "Troll",
                 BodyParts = new List<BodyPart>
                 {
                     BodyPart.Head,
@@ -122,7 +126,8 @@ namespace Game.General.Services
         {
             return new CreatureConfig
             {
-                SpriteName = "hydra",
+                Name = "hydra",
+                SpriteName = "Hydra",
                 BodyParts = new List<BodyPart>
                 {
                     BodyPart.Head,
@@ -149,7 +154,7 @@ namespace Game.General.Services
         {
             MakeRat(),
             MakeGoblin(),
-            MakeOrk(),
+            // MakeOrk(),
             MakeTroll(),
             MakeHydra()
         };

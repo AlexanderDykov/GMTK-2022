@@ -16,11 +16,8 @@ namespace Game.General.Views
         [Inject]
         private IArenaService arenaService;
 
-        [Inject]
-        private IPlayerProvider playerProvider;
-
-        [Inject]
-        private IEnemyProvider enemyProvider;
+        [SerializeField]
+        private Image icon;
 
         [SerializeField]
         private Slider healthBar;
@@ -35,17 +32,22 @@ namespace Game.General.Views
         private BodyPartView _bodyPartViewPrefab;
 
         [SerializeField]
+        private Animator animator;
+
+        [SerializeField]
+        private TMP_Text damageLable;
+        
+        [SerializeField]
         private TMP_Text hpLabel;
 
         private Creature _creature;
-
-        // private string ID => isPlayer ? playerProvider.Id : enemyProvider.Id;
-
+        
         private List<BodyPartView> bodyParts = new List<BodyPartView>();
 
         public void ApplyConfig(Creature creature)
         {
             _creature = creature;
+            icon.sprite = Resources.Load<Sprite>(creature.Config.SpriteName);
             _creature.CurrentHealthChanged += OnCurrentHealthChanged;
 
             arenaService.Add(_creature.Id, _creature);
@@ -86,8 +88,9 @@ namespace Game.General.Views
             }
         }
 
-        private void OnCurrentHealthChanged(int currentHealth)
+        private void OnCurrentHealthChanged(int currentHealth, int damage)
         {
+            damageLable.SetText("-" + damage);
             UpdateHealthBar(currentHealth);
         }
 
@@ -97,6 +100,7 @@ namespace Game.General.Views
             {
                 hpLabel.text = health.ToString();
             }
+            animator.SetTrigger("DamageReceive");
             healthBar.value = health;
         }
 

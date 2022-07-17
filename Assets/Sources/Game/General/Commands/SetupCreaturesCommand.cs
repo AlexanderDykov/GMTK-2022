@@ -21,7 +21,7 @@ namespace Game.General.Commands
             var enemyView = FindObjectsOfType<CreatureView>().FirstOrDefault(x => x.CompareTag("Enemy"));
             if (enemyView != null)
             {
-                Debug.LogError("You start fighting with " + enemyProvider.Current.SpriteName);
+                Debug.LogError("You start fighting with " + enemyProvider.Current.Name);
                 var enemy = new Creature(enemyProvider.Current, enemyProvider.Id);
                 enemyView.ApplyConfig(enemy);
             }

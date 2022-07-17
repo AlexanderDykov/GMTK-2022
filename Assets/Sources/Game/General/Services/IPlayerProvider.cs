@@ -30,7 +30,8 @@ namespace Game.General.Services
     {
         public CreatureConfig PlayerConfig => new()
         {
-            SpriteName = "player",
+            Name = "player",
+            SpriteName = "Player",
             BodyParts = new List<BodyPart>
             {
                 BodyPart.Head,

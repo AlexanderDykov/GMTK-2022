@@ -14,7 +14,7 @@ namespace Game.General
         {
             foreach (var creature in arena.Creatures.Values)
             {
-                if (creature.Config.SpriteName == "player")
+                if (creature.Config.Name == "player")
                 {
                     return creature;
                 }
@@ -82,7 +82,7 @@ namespace Game.General
                     currentDice.Random()
                 };
                 IChooseMovesStrategy.LogMove(isDefenceMove,
-                                             self.Config.SpriteName,
+                                             self.Config.Name,
                                              target,
                                              diceTypes);
                 var moves = new List<Move>()
@@ -131,7 +131,7 @@ namespace Game.General
                     anyDice.Random()
                 };
                 IChooseMovesStrategy.LogMove(isDefenceMove,
-                                             self.Config.SpriteName,
+                                             self.Config.Name,
                                              target,
                                              diceTypes);
                 var moves = new List<Move>()
@@ -171,7 +171,7 @@ namespace Game.General
                     BodyPart = player.Config.BodyParts.RandomElement()
                 };
                 IChooseMovesStrategy.LogMove(false,
-                                             self.Config.SpriteName,
+                                             self.Config.Name,
                                              target,
                                              move.DiceTypes);
                 result.Add(target, new List<Move>{ move });
@@ -204,7 +204,7 @@ namespace Game.General
                         BodyPart = player.Config.BodyParts.RandomElement()
                     };
                     IChooseMovesStrategy.LogMove(false,
-                                                 self.Config.SpriteName,
+                                                 self.Config.Name,
                                                  target,
                                                  attackDices);
                     result.Add(target, new List<Move>
@@ -224,7 +224,7 @@ namespace Game.General
                         BodyPart = self.Config.BodyParts.RandomElement()
                     };
                     IChooseMovesStrategy.LogMove(true,
-                                                 self.Config.SpriteName,
+                                                 self.Config.Name,
                                                  target,
                                                  defenceDices);
                     result.Add(target, new List<Move>
@@ -243,6 +243,8 @@ namespace Game.General
 
     public class CreatureConfig
     {
+        public string Name;
+        
         public string SpriteName;
 
         public List<BodyPart> BodyParts;
@@ -272,14 +274,14 @@ namespace Game.General
         public bool IsDead => _currentHealth <= 0;
         public int CurrentHealth => _currentHealth;
 
-        public event Action<int> CurrentHealthChanged;
+        public event Action<int, int> CurrentHealthChanged;
 
         public void ApplyDamage(int damage)
         {
             _currentHealth -= damage;
             Debug.LogError("Creature " + Id + " received = " + damage + " and health = " + _currentHealth);
             _currentHealth = Math.Max(0, _currentHealth);
-            CurrentHealthChanged?.Invoke(_currentHealth);
+            CurrentHealthChanged?.Invoke(_currentHealth, damage);
         }
 
         public int GetHealthPercents()

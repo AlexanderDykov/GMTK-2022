@@ -91,15 +91,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dicesToSprites:
-    keys: 01000000020000000300000004000000050000000600000007000000
+    keys: 010000000200000003000000040000000500000006000000
     values:
-    - {fileID: 21300000, guid: 86c21436a40904572b79e6f5db03f5bd, type: 3}
-    - {fileID: 21300000, guid: 61098d0d660fa416fa347be328e7d0bf, type: 3}
-    - {fileID: 21300000, guid: c34c4cd46f10a4bf7bad89a9a4d9ad95, type: 3}
-    - {fileID: 21300000, guid: d8cb7d60104da4c9aa7e50ee527e6754, type: 3}
-    - {fileID: 21300000, guid: 26c7a4e997943414a86cd1cac6611cee, type: 3}
-    - {fileID: 21300000, guid: c8bf8f98a44f3451f9a3d1a05d1ff9fa, type: 3}
-    - {fileID: 21300000, guid: 571a5d157e25f42d1819b86270370c9b, type: 3}
+    - {fileID: -1237996792, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 35889762, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 342552398, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 1833258792, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: -975532999, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 1241086867, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
 --- !u!114 &-1008348698910720228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,11 +122,11 @@ MonoBehaviour:
     - EarthDefend
     - EarthAttack
     values:
-    - {fileID: 21300000, guid: 56b1a2ff4c44b43e8ab292d1bf58117b, type: 3}
-    - {fileID: 21300000, guid: 238f2a2ae3f004393b75a68498432df2, type: 3}
-    - {fileID: 21300000, guid: f696e7da5207b4f618a56382296b022a, type: 3}
-    - {fileID: 21300000, guid: 9645021e0a56649e29e233e703cfda21, type: 3}
-    - {fileID: 21300000, guid: 7b1fb4ac5e4674b73ae7e968e711d66c, type: 3}
-    - {fileID: 21300000, guid: 1c6e9613e28064f31a7d5140898c079c, type: 3}
-    - {fileID: 21300000, guid: 9d37e4d96c2dd484bb88f08c5932beaf, type: 3}
-    - {fileID: 21300000, guid: 6adcfa30bba2d49c995126194dd373b4, type: 3}
+    - {fileID: -292520413, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: -295620756, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: -1105896780, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 1650173814, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 474006895, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 1825787992, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 2132518336, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 1790446008, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
