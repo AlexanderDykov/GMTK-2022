@@ -147,8 +147,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioDictionary:
-    keys: 
-    values: []
+    keys: 000000000100000002000000
+    values:
+    - {fileID: 8300000, guid: aaf0426a4dfaf4883b401ff0996cf2a9, type: 3}
+    - {fileID: 8300000, guid: 317ad62badea840f48683005d499778e, type: 3}
+    - {fileID: 8300000, guid: b25dab41b02004d5ba5703f446fef978, type: 3}
   audioSource: {fileID: -5715030545318977604}
 --- !u!82 &4261681326710349974
 AudioSource:
@@ -160,9 +163,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d3fba811118e14391831ea8af743d146, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
