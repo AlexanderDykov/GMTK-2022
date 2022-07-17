@@ -810,6 +810,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1669126732}
     m_Modifications:
+    - target: {fileID: 5174420317821916036, guid: 70b6fd443193247e5961c9680db6a8b9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -272.61996
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174420317821916036, guid: 70b6fd443193247e5961c9680db6a8b9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 77.12999
+      objectReference: {fileID: 0}
     - target: {fileID: 5174420318612580900, guid: 70b6fd443193247e5961c9680db6a8b9,
         type: 3}
       propertyPath: m_Name
@@ -1775,12 +1785,12 @@ MonoBehaviour:
     m_Top: 10
     m_Bottom: 10
   m_ChildAlignment: 4
-  m_Spacing: 10
+  m_Spacing: 70
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
+  m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &1097693348
@@ -2475,12 +2485,12 @@ MonoBehaviour:
     m_Top: 5
     m_Bottom: 5
   m_ChildAlignment: 4
-  m_Spacing: 10
+  m_Spacing: 70
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
+  m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &1628892631

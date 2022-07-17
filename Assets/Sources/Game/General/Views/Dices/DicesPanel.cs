@@ -4,6 +4,7 @@ namespace Game.General.Views
     using System.Collections.Generic;
     using Effects;
     using UnityEngine;
+    using Zenject;
 
     public class DicesPanel : MonoBehaviour
     {

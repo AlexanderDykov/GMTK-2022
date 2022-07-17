@@ -15,6 +15,11 @@ namespace Game.General.Views
         [Inject]
         private IDiceSelector _diceSelector;
 
+
+        [Inject]
+        private IUIBlocker uiBlocker;
+
+
         [SerializeField]
         GraphicRaycaster m_Raycaster;
 
@@ -29,6 +34,9 @@ namespace Game.General.Views
 
         void Update()
         {
+            if (uiBlocker.Block)
+                return;
+
             //Check if the left Mouse button is clicked
             if (Input.GetKeyUp(KeyCode.Mouse0))
             {
@@ -61,6 +69,7 @@ namespace Game.General.Views
                                 _diceSelector.Deselect();
                             }
                         }
+
                         foreach (var layoutGroup in groups)
                         {
                             Recalcul(layoutGroup);
@@ -99,6 +108,7 @@ namespace Game.General.Views
                     {
                         Recalcul(layoutGroup);
                     }
+
                     return;
                 }
 
@@ -124,6 +134,7 @@ namespace Game.General.Views
                 {
                     Recalcul(layoutGroup);
                 }
+
                 return;
             }
 
@@ -135,7 +146,7 @@ namespace Game.General.Views
                 {
                     Recalcul(layoutGroup);
                 }
-                
+
                 return;
             }
 
@@ -158,6 +169,5 @@ namespace Game.General.Views
             layoutGroup.gameObject.SetActive(true);
             Canvas.ForceUpdateCanvases();
         }
-        
     }
 }

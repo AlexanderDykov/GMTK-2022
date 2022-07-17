@@ -3,6 +3,7 @@ using Zenject;
 namespace Game.General.Services
 {
     using System.Collections.Generic;
+    using Cysharp.Threading.Tasks;
 
     public interface IArenaService
     {
@@ -12,7 +13,7 @@ namespace Game.General.Services
 
         void ClearArena();
 
-        void ApplyTurn(Turn turn);
+        UniTask ApplyTurn(Turn turn);
         Dictionary<string, Creature> Creatures { get; }
     }
 
@@ -45,9 +46,9 @@ namespace Game.General.Services
             _arena.Creatures.Clear();
         }
 
-        public void ApplyTurn(Turn turn)
+        public UniTask ApplyTurn(Turn turn)
         {
-            _arena.ApplyTurn(turn);
+            return _arena.ApplyTurn(turn);
         }
 
         public Dictionary<string, Creature> Creatures => _arena.Creatures;

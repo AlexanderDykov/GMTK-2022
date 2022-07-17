@@ -1,5 +1,6 @@
 namespace Game.General.Services
 {
+    using Cysharp.Threading.Tasks;
     using Effects;
     using UnityEngine;
     using Views;
@@ -7,7 +8,7 @@ namespace Game.General.Services
 
     public interface ISpellVisualizerService
     {
-        void Show(Effect spell, bool attack, Vector2 position);
+        UniTask Show(Effect spell, bool attack, Vector2 position);
     }
 
 
@@ -18,15 +19,17 @@ namespace Game.General.Services
 
         private SpellVisualizer view;
 
-        public void Show(Effect spell, bool attack, Vector2 position)
+        public UniTask Show(Effect spell, bool attack, Vector2 position)
         {
-            if (view == null)
-            {
-                view = Resources.Load<SpellVisualizer>("SpellView");
-            }
-
-            var instance = Object.Instantiate(view, position, Quaternion.identity);
-            instance.Setup(spellIconProvider.GetIcon(spell, attack));
+            // if (view == null)
+            // {
+            //     view = Resources.Load<SpellVisualizer>("SpellView");
+            // }
+            //
+            // var instance = Object.Instantiate(view, position, Quaternion.identity);
+            // instance.Setup(spellIconProvider.GetIcon(spell, attack));
+            //
+            return UniTask.CompletedTask;
         }
     }
 }

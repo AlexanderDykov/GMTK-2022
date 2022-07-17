@@ -2,6 +2,7 @@ namespace Game.General
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Cysharp.Threading.Tasks;
     using Game.General.Effects;
     using Services;
     using UnityEngine;
@@ -21,7 +22,7 @@ namespace Game.General
             _spellVisualizerService = spellVisualizerService;
         }
 
-        public void ApplyTurn(Turn turn)
+        public async UniTask ApplyTurn(Turn turn)
         {
             foreach (var movesPerTarget in turn.AssignedMoves)
             {
@@ -44,19 +45,19 @@ namespace Game.General
 
                     effects[effect.Order].Add(effect);
                 }
-                
+
                 foreach (var effect in effects.Values.SelectMany(effectList => effectList))
                 {
                     if (effect.SpellType != SpellType.None)
                     {
-                        var bodyPartView = Object.FindObjectsOfType<BodyPartView>()
-                            .First(x => x.Id == target.Id && x.BodyPart == target.BodyPart);
-
-                        _spellVisualizerService.Show(effect, target.Id != effect.Move.SourceId, bodyPartView.transform.position);
+                        await _spellVisualizerService.Show(effect, target.Id != effect.Move.SourceId,
+                            Vector2.zero);
                     }
 
                     effect.Execute(target, moves, attackRecord, effects);
                 }
+
+                await UniTask.Delay(1000);
 
                 var damage = attackRecord.Calculate();
                 if (damage > 0)

@@ -42,20 +42,20 @@ namespace Game.General.Services
                 new(new List<DiceType>
                 {
                     One,
-                    Two,
-                    Three,
-                    Four,
-                    Five,
-                    Six,
+                    // Two,
+                    // Three,
+                    // Four,
+                    // Five,
+                    // Six,
                 }),
                 new(new List<DiceType>
                 {
                     One,
-                    Two,
-                    Three,
-                    Four,
-                    Five,
-                    Six,
+                    // Two,
+                    // Three,
+                    // Four,
+                    // Five,
+                    // Six,
                 })
             },
             MaxHealth = 20,

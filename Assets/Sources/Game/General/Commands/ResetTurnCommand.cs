@@ -1,12 +1,13 @@
 namespace Game.General.Commands
 {
     using Cysharp.Threading.Tasks;
+    using Services;
     using UnityEngine;
     using Views;
 
     public class ResetTurnCommand : ICommand
     {
-        public UniTask Execute()
+        public async UniTask Execute()
         {
             var creatures = Object.FindObjectsOfType<CreatureView>();
             foreach (var creatureView in creatures)
@@ -14,7 +15,7 @@ namespace Game.General.Commands
                 creatureView.ResetCreature();
             }
 
-            return UniTask.CompletedTask;
+            await UniTask.Delay(2000);
         }
     }
 }

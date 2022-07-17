@@ -1297,8 +1297,8 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 1
 --- !u!114 &6701050702470984774
 MonoBehaviour:
@@ -1408,7 +1408,7 @@ MonoBehaviour:
   shield: {fileID: 21300000, guid: 1dee9f0cc625747b6ba1fdb28ddb00c0, type: 3}
   sword: {fileID: 21300000, guid: fc78e89ccbcbb4389b3cef7603d7b639, type: 3}
   enemyIcon: {fileID: 1776032643235955753}
-  animator: {fileID: 0}
+  animator: {fileID: 5212644165418733302}
 --- !u!114 &2708560246979882044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2130,7 +2130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4712337415913757235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2150,10 +2150,10 @@ RectTransform:
   m_Father: {fileID: 5360235379691753387}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 280, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &891187957312965669
 CanvasRenderer:
@@ -2216,8 +2216,8 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &115372155749913725
 MonoBehaviour:

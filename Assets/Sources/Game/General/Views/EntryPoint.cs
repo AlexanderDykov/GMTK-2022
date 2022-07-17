@@ -19,14 +19,12 @@ namespace Game.General.Views
         [Inject]
         private IArenaService arenaService;
 
+        [Inject]
+        private IStartGameService startGameService;
+
         private async void Start()
         {
-            loaderService.Show();
-            await new LoadSceneCommand("GameScene").Execute();
-            await new SetupPlayerCommand(playerProvider, arenaService).Execute();
-            await new SetupCreaturesCommand(enemyProvider).Execute();
-
-            loaderService.Hide();
+            startGameService.Start();
         }
     }
 }

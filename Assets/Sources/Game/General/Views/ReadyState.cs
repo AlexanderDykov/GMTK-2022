@@ -37,6 +37,11 @@ namespace Game.General.Views
         [Inject]
         private IStartTurnService startTurnService;
 
+        [Inject]
+        private IUIBlocker uiBlocker;
+
+        [Inject]
+        private IDiceSelector diceSelector;
         private void Start()
         {
             DisableAllButtons();
@@ -66,6 +71,9 @@ namespace Game.General.Views
 
         private async void OnReadyButtonClick()
         {
+            uiBlocker.Block = true;
+            diceSelector.Deselect();
+            
             var arena = arenaService.Get();
             DisableAllButtons();
             var turn = new Turn();
@@ -97,8 +105,7 @@ namespace Game.General.Views
                 }
             }
 
-            await UniTask.Delay(5000);
-            arenaService.ApplyTurn(turn);
+            await arenaService.ApplyTurn(turn);
 
             if (arenaService.Creatures.Count <= 1)
             {
@@ -126,9 +133,9 @@ namespace Game.General.Views
             }
 
             await new ResetTurnCommand().Execute();
-
             startTurnService.StartTurn();
             button.gameObject.SetActive(true);
+            uiBlocker.Block = false;
         }
 
         private void OnDestroy()
