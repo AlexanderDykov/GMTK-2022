@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 3534326889031102372}
   border: {fileID: 3534326888595910601}
+  animator: {fileID: 2580375251091366095}
   diceType: 0
   sourceId: 
 --- !u!114 &-3609025508863028911
