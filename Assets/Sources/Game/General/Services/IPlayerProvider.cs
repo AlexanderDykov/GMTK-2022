@@ -2,7 +2,9 @@ namespace Game.General.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Effects;
+    using Game.General.Views.BodyParts;
     using static Effects.DiceType;
 
     public interface IPlayerProvider
@@ -10,6 +12,18 @@ namespace Game.General.Services
         CreatureConfig PlayerConfig { get; }
 
         string Id { get; }
+    }
+
+    public class PlayerChooseMovesStrategy : IChooseMovesStrategy
+    {
+        public Dictionary<Target, List<Move>> ChooseMoves(Creature self, Arena arena, Turn turn)
+        {
+            var allBodyParts = UnityEngine.Object.FindObjectsOfType<BodyPartView>();
+            return allBodyParts
+                .Select(bodyPart => bodyPart.CreateAssignedMove())
+                .Where(x => x.Item2.Count > 0)
+                .ToDictionary(valueTuple => valueTuple.Item1, valueTuple => valueTuple.Item2);
+        }
     }
 
     public class PlayerProvider : IPlayerProvider
@@ -43,7 +57,8 @@ namespace Game.General.Services
                     Six,
                 })
             },
-            MaxHealth = 20
+            MaxHealth = 20,
+            ChooseMovesStrategy = new PlayerChooseMovesStrategy()
         };
 
         public string Id { get; } = Guid.NewGuid().ToString();

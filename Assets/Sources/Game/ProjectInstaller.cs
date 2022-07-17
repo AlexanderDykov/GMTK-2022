@@ -8,7 +8,6 @@ namespace Game
         public override void InstallBindings()
         {
             Container.Bind<IDiceSelector>().To<DiceSelector>().AsSingle();
-            Container.Bind<IPlayerAssignedMoveCollector>().To<PlayerAssignedMoveCollector>().AsSingle();
             Container.Bind<ISpellBookService>().To<SpellBookService>().AsSingle();
             Container.Bind<IArenaService>().To<ArenaService>().AsSingle();
             Container.Bind<IPlayerProvider>().To<PlayerProvider>().AsSingle();

@@ -20,9 +20,6 @@ namespace Game.General.Views
         private Button nextCreature;
         
         [Inject]
-        private IPlayerAssignedMoveCollector playerAssignedMoveCollector;
-
-        [Inject]
         private IArenaService arenaService;
 
         [Inject]
@@ -71,7 +68,6 @@ namespace Game.General.Views
             var arena = arenaService.Get();
             DisableAllButtons();
             var turn = new Turn();
-            turn.AssignMoves(playerAssignedMoveCollector.CreateAssignedMove());
             foreach (var creature in arena.Creatures.Values)
             {
                 var strategy = creature.Config.ChooseMovesStrategy;
