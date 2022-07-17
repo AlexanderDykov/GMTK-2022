@@ -12,6 +12,15 @@ namespace Game.General
         public Func<Move, Effect> EffectMaker;
     }
 
+    public enum SpellType
+    {
+        None,
+        Water,
+        Fire,
+        Poison,
+        Earth
+    }
+
     public class SpellBook
     {
         private Dictionary<List<DiceType>, Spell> _spells = new();
@@ -31,7 +40,6 @@ namespace Game.General
 
         private static bool IsMatches(List<DiceType> pattern, List<DiceType> candidate)
         {
-
             if (pattern.Count != candidate.Count)
             {
                 return false;
@@ -46,6 +54,7 @@ namespace Game.General
                     }
                 }
             }
+
             return true;
         }
     }

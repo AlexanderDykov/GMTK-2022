@@ -20,10 +20,9 @@ namespace Game.General.Services
     {
         private readonly Arena _arena;
 
-        [Inject]
-        public ArenaService(ISpellBookService spellBookService)
+        public ArenaService(ISpellBookService spellBookService, ISpellVisualizerService spellVisualizerService)
         {
-            _arena = new Arena(spellBookService.Get());
+            _arena = new Arena(spellBookService.Get(), spellVisualizerService);
         }
 
         public Arena Get()
@@ -37,6 +36,7 @@ namespace Game.General.Services
             {
                 return;
             }
+
             _arena.Creatures.Add(id, creature);
         }
 

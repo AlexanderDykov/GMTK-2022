@@ -20,6 +20,9 @@ namespace Game.General.Views.BodyParts
         private string _id;
 
         private readonly HashSet<DiceElement> _dices = new();
+        
+        public BodyPart BodyPart => _bodyPart;
+        public string Id => _id;
 
 
         private void Start()

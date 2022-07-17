@@ -32,17 +32,19 @@ namespace Game.General.Effects
     public abstract class Effect
     {
         public virtual EffectOrder Order => EffectOrder.Default;
+        public virtual SpellType SpellType => SpellType.None;
 
         public Move Move { get; }
+
         protected Effect(Move move)
         {
             Move = move;
         }
 
         public void Execute(Target target,
-                            List<Move> allAssignedMoves,
-                            AttackRecord attackRec,
-                            Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             if (target.Id == Move.SourceId)
             {
@@ -60,17 +62,17 @@ namespace Game.General.Effects
         }
 
         protected virtual void DamageEffect(Target target,
-                                            List<Move> allAssignedMoves,
-                                            AttackRecord attackRec,
-                                            Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             attackRec.Damage += GetBasicPower();
         }
 
         protected virtual void ResistEffect(Target target,
-                                            List<Move> allAssignedMoves,
-                                            AttackRecord attackRec,
-                                            Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             attackRec.Resist += GetBasicPower();
         }
@@ -85,23 +87,25 @@ namespace Game.General.Effects
 
     public class OneOneComboEffect : Effect
     {
+        public override SpellType SpellType => SpellType.Fire;
+
         public OneOneComboEffect(Move move) : base(move)
         {
         }
 
         protected override void DamageEffect(Target target,
-                                             List<Move> allAssignedMoves,
-                                             AttackRecord attackRec,
-                                             Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             base.DamageEffect(target, allAssignedMoves, attackRec, effects);
             attackRec.Damage += 10;
         }
 
         protected override void ResistEffect(Target target,
-                                             List<Move> allAssignedMoves,
-                                             AttackRecord attackRec,
-                                             Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             base.ResistEffect(target, allAssignedMoves, attackRec, effects);
             int maxAttackDice = 0;
@@ -109,31 +113,33 @@ namespace Game.General.Effects
             {
                 if (target.Id != move.SourceId)
                 {
-                   maxAttackDice = Math.Max(maxAttackDice, move.DiceTypes.Max(x => x.GetValue()));
+                    maxAttackDice = Math.Max(maxAttackDice, move.DiceTypes.Max(x => x.GetValue()));
                 }
             }
+
             attackRec.Resist += maxAttackDice;
         }
     }
 
     public class TwoTwoComboEffect : Effect
     {
+        public override SpellType SpellType => SpellType.Water;
         public TwoTwoComboEffect(Move move) : base(move)
         {
         }
 
         protected override void DamageEffect(Target target,
-                                             List<Move> allAssignedMoves,
-                                             AttackRecord attackRec,
-                                             Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             attackRec.Damage += GetBasicPower() * 2;
         }
 
         protected override void ResistEffect(Target target,
-                                             List<Move> allAssignedMoves,
-                                             AttackRecord attackRec,
-                                             Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             attackRec.Resist += GetBasicPower() * 2;
         }
@@ -141,7 +147,7 @@ namespace Game.General.Effects
 
     public class ThreeThreeComboEffect : Effect
     {
-
+        public override SpellType SpellType => SpellType.Poison;
         public override EffectOrder Order => EffectOrder.Pre;
 
         public ThreeThreeComboEffect(Move move) : base(move)
@@ -149,9 +155,9 @@ namespace Game.General.Effects
         }
 
         protected override void DamageEffect(Target target,
-                                             List<Move> allAssignedMoves,
-                                             AttackRecord attackRec,
-                                             Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             base.DamageEffect(target, allAssignedMoves, attackRec, effects);
             var lines = effects.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
@@ -173,9 +179,9 @@ namespace Game.General.Effects
         }
 
         protected override void ResistEffect(Target target,
-                                             List<Move> allAssignedMoves,
-                                             AttackRecord attackRec,
-                                             Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             base.ResistEffect(target, allAssignedMoves, attackRec, effects);
             if (effects.ContainsKey(EffectOrder.Default))
@@ -193,6 +199,7 @@ namespace Game.General.Effects
                             diceNumPerTypes.TryGetValue(diceType, out num);
                             diceNumPerTypes[diceType] = num + 1;
                         }
+
                         foreach (var diceNumPerType in diceNumPerTypes)
                         {
                             if (diceNumPerType.Value == 2)
@@ -213,14 +220,15 @@ namespace Game.General.Effects
 
     public class FourFourComboEffect : Effect
     {
+        public override SpellType SpellType => SpellType.Earth;
         public FourFourComboEffect(Move move) : base(move)
         {
         }
 
         protected override void DamageEffect(Target target,
-                                             List<Move> allAssignedMoves,
-                                             AttackRecord attackRec,
-                                             Dictionary<EffectOrder, List<Effect>> effects)
+            List<Move> allAssignedMoves,
+            AttackRecord attackRec,
+            Dictionary<EffectOrder, List<Effect>> effects)
         {
             base.DamageEffect(target, allAssignedMoves, attackRec, effects);
             foreach (var move in allAssignedMoves)

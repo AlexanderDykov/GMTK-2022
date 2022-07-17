@@ -14,6 +14,7 @@ namespace Game
             Container.Bind<IEnemyProvider>().To<EnemyProvider>().AsSingle();
             Container.Bind<ILoaderService>().To<LoaderService>().AsSingle();
             Container.Bind<IStartGameService>().To<StartGameService>().AsSingle();
+            Container.Bind<ISpellVisualizerService>().To<SpellVisualizerService>().AsSingle();
         }
     }
 }

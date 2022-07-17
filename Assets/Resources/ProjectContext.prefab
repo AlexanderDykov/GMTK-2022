@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8759882532910226863}
   - component: {fileID: -4156127342467287999}
   - component: {fileID: 880622803697801596}
+  - component: {fileID: -1008348698910720228}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: -1008348698910720228}
   - {fileID: 880622803697801596}
   - {fileID: -4156127342467287999}
   _installerPrefabs: []
@@ -98,3 +100,34 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 26c7a4e997943414a86cd1cac6611cee, type: 3}
     - {fileID: 21300000, guid: c8bf8f98a44f3451f9a3d1a05d1ff9fa, type: 3}
     - {fileID: 21300000, guid: 571a5d157e25f42d1819b86270370c9b, type: 3}
+--- !u!114 &-1008348698910720228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5515825961373530902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925b0e6b07dc4b1b9ee150ed350de83f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dicesToSprites:
+    keys:
+    - WaterAttack
+    - WaterDefend
+    - FireAttack
+    - FireDefend
+    - PoisonAttack
+    - PoisonDefend
+    - EarthDefend
+    - EarthAttack
+    values:
+    - {fileID: 21300000, guid: 56b1a2ff4c44b43e8ab292d1bf58117b, type: 3}
+    - {fileID: 21300000, guid: 238f2a2ae3f004393b75a68498432df2, type: 3}
+    - {fileID: 21300000, guid: f696e7da5207b4f618a56382296b022a, type: 3}
+    - {fileID: 21300000, guid: 9645021e0a56649e29e233e703cfda21, type: 3}
+    - {fileID: 21300000, guid: 7b1fb4ac5e4674b73ae7e968e711d66c, type: 3}
+    - {fileID: 21300000, guid: 1c6e9613e28064f31a7d5140898c079c, type: 3}
+    - {fileID: 21300000, guid: 9d37e4d96c2dd484bb88f08c5932beaf, type: 3}
+    - {fileID: 21300000, guid: 6adcfa30bba2d49c995126194dd373b4, type: 3}

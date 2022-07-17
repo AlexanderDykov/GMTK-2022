@@ -3,7 +3,9 @@ namespace Game.General
     using System.Collections.Generic;
     using System.Linq;
     using Game.General.Effects;
+    using Services;
     using UnityEngine;
+    using Views.BodyParts;
 
     public class Arena
     {
@@ -11,9 +13,12 @@ namespace Game.General
 
         private readonly SpellBook _spellBook;
 
-        public Arena(SpellBook spellBook)
+        private ISpellVisualizerService _spellVisualizerService;
+
+        public Arena(SpellBook spellBook, ISpellVisualizerService spellVisualizerService)
         {
             _spellBook = spellBook;
+            _spellVisualizerService = spellVisualizerService;
         }
 
         public void ApplyTurn(Turn turn)
@@ -25,7 +30,11 @@ namespace Game.General
                 var attackRecord = new AttackRecord();
                 var effects = new Dictionary<EffectOrder, List<Effect>>();
                 var moves = movesPerTarget.Value;
-                var enumerable = moves.Select(move => _spellBook.Find(move)).ToList();
+                var enumerable = moves.Select(move =>
+                {
+                    var effect = _spellBook.Find(move);
+                    return effect;
+                }).ToList();
                 foreach (var effect in enumerable)
                 {
                     if (!effects.ContainsKey(effect.Order))
@@ -38,6 +47,14 @@ namespace Game.General
 
                 foreach (var effect in effects.Values.SelectMany(effectList => effectList))
                 {
+                    if (effect.SpellType != SpellType.None)
+                    {
+                        var bodyPartView = Object.FindObjectsOfType<BodyPartView>()
+                            .First(x => x.Id == target.Id && x.BodyPart == target.BodyPart);
+
+                        _spellVisualizerService.Show(effect, target.Id != effect.Move.SourceId, bodyPartView.transform.position);
+                    }
+
                     effect.Execute(target, moves, attackRecord, effects);
                 }
 
