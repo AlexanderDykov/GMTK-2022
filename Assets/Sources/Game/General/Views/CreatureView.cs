@@ -36,12 +36,12 @@ namespace Game.General.Views
 
         [SerializeField]
         private TMP_Text damageLable;
-        
+
         [SerializeField]
         private TMP_Text hpLabel;
 
         private Creature _creature;
-        
+
         private List<BodyPartView> bodyParts = new List<BodyPartView>();
 
         public void ApplyConfig(Creature creature)
@@ -100,6 +100,7 @@ namespace Game.General.Views
             {
                 hpLabel.text = health.ToString();
             }
+
             animator.SetTrigger("DamageReceive");
             healthBar.value = health;
         }

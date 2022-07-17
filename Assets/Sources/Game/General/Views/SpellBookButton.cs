@@ -1,6 +1,5 @@
 namespace Game.General.Views
 {
-    using System;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -25,6 +24,11 @@ namespace Game.General.Views
                 PlayerPrefs.SetInt("FirstShow", 1);
                 button.image.sprite = openBook;
                 book.gameObject.SetActive(true);
+            }
+            else
+            {
+                button.image.sprite = closedBook;
+                book.gameObject.SetActive(false);
             }
 
             button.onClick.AddListener(OnClick);

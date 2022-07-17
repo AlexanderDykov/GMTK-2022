@@ -147,7 +147,7 @@ namespace Game.General.Effects
 
     public class ThreeThreeComboEffect : Effect
     {
-        public override SpellType SpellType => SpellType.Poison;
+        public override SpellType SpellType => SpellType.Air;
         public override EffectOrder Order => EffectOrder.Pre;
 
         public ThreeThreeComboEffect(Move move) : base(move)
@@ -220,7 +220,7 @@ namespace Game.General.Effects
 
     public class FourFourComboEffect : Effect
     {
-        public override SpellType SpellType => SpellType.Earth;
+        public override SpellType SpellType => SpellType.Ground;
         public FourFourComboEffect(Move move) : base(move)
         {
         }

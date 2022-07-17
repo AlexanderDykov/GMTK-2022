@@ -17,8 +17,8 @@ namespace Game.General
         None,
         Water,
         Fire,
-        Poison,
-        Earth
+        Air,
+        Ground
     }
 
     public class SpellBook

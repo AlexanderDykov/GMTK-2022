@@ -117,16 +117,16 @@ MonoBehaviour:
     - WaterDefend
     - FireAttack
     - FireDefend
-    - PoisonAttack
-    - PoisonDefend
-    - EarthDefend
-    - EarthAttack
+    - AirAttack
+    - AirDefend
+    - GroundDefend
+    - GroundAttack
     values:
     - {fileID: -292520413, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
-    - {fileID: -295620756, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 1825787992, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
     - {fileID: -1105896780, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
     - {fileID: 1650173814, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
-    - {fileID: 474006895, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
-    - {fileID: 1825787992, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: 1359572768, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
+    - {fileID: -295620756, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
     - {fileID: 2132518336, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
     - {fileID: 1790446008, guid: 0fcbd1e62a9444bffaaabedcd650270c, type: 3}
