@@ -15,6 +15,9 @@ namespace Game.General.Views
         private Button button;
 
         [SerializeField]
+        private Button bg;
+
+        [SerializeField]
         private GameObject book;
 
         private void Start()
@@ -32,6 +35,7 @@ namespace Game.General.Views
             }
 
             button.onClick.AddListener(OnClick);
+            bg.onClick.AddListener(OnClick);
         }
 
         private void OnClick()
@@ -43,6 +47,7 @@ namespace Game.General.Views
         private void OnDestroy()
         {
             button.onClick.RemoveListener(OnClick);
+            bg.onClick.RemoveListener(OnClick);
         }
     }
 }
