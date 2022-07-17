@@ -18,18 +18,18 @@ namespace Game.General.Views
 
         [SerializeField]
         private Button nextCreature;
-        
+
         [Inject]
         private IArenaService arenaService;
 
         [Inject]
         private IPlayerProvider playerProvider;
-        
+
         [Inject]
         private IEnemyProvider enemyProvider;
 
         [Inject]
-        private ILoaderService loaderService;
+        private IStartGameService startGameService;
 
         private void Start()
         {
@@ -40,20 +40,15 @@ namespace Game.General.Views
             nextCreature.onClick.AddListener(OnNextCreatureClick);
         }
 
-        private async void OnNextCreatureClick()
+        private void OnNextCreatureClick()
         {
-            loaderService.Show();
-            await new UnloadSceneCommand("GameScene").Execute();
-            await new LoadSceneCommand("GameScene").Execute();
-            await new SetupPlayerCommand(playerProvider, arenaService).Execute();
-            await new SetupCreaturesCommand(enemyProvider).Execute();
-            loaderService.Hide();
+            startGameService.Start();
         }
 
-        private async void OnGoToMenuClick()
+        private void OnGoToMenuClick()
         {
-            enemyProvider.Clear();
-            await new UnloadSceneCommand("GameScene").Execute();
+            enemyProvider.Restart();
+            startGameService.Start();
         }
 
         private void DisableAllButtons()
@@ -76,11 +71,12 @@ namespace Game.General.Views
                     turn.AssignMoves(strategy.ChooseMoves(creature, arena, turn));
                 }
             }
+
             arenaService.ApplyTurn(turn);
 
-            if (arenaService.Creatures.Count == 1)
+            if (arenaService.Creatures.Count <= 1)
             {
-                if (arenaService.Creatures.Last().Key == playerProvider.Id)
+                if (arenaService.Creatures.Count > 0 && arenaService.Creatures.Last().Key == playerProvider.Id)
                 {
                     Debug.LogError("You win");
                     enemyProvider.Next();

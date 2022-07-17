@@ -5,6 +5,7 @@ namespace Game.General.Views
     using BodyParts;
     using Effects;
     using Services;
+    using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
     using Zenject;
@@ -34,7 +35,7 @@ namespace Game.General.Views
         private BodyPartView _bodyPartViewPrefab;
 
         [SerializeField]
-        private bool isPlayer;
+        private TMP_Text hpLabel;
 
         private Creature _creature;
 
@@ -92,6 +93,10 @@ namespace Game.General.Views
 
         public void UpdateHealthBar(int health)
         {
+            if (hpLabel != null)
+            {
+                hpLabel.text = health.ToString();
+            }
             healthBar.value = health;
         }
 

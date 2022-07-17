@@ -14,6 +14,7 @@ namespace Game.General.Services
 
         string Id { get; }
         void Clear();
+        void Restart();
     }
 
     public class EnemyProvider : IEnemyProvider
@@ -164,6 +165,11 @@ namespace Game.General.Services
         public void Clear()
         {
             enemies.Clear();
+        }
+
+        public void Restart()
+        {
+            currentIndex = 0;
         }
     }
 }

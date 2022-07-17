@@ -13,6 +13,7 @@ namespace Game
             Container.Bind<IPlayerProvider>().To<PlayerProvider>().AsSingle();
             Container.Bind<IEnemyProvider>().To<EnemyProvider>().AsSingle();
             Container.Bind<ILoaderService>().To<LoaderService>().AsSingle();
+            Container.Bind<IStartGameService>().To<StartGameService>().AsSingle();
         }
     }
 }
