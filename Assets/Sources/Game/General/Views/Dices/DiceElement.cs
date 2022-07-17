@@ -33,6 +33,7 @@ namespace Game.General.Views
 
         private void Awake()
         {
+            animator.keepAnimatorControllerStateOnDisable = true;
             initialParent = transform.parent;
         }
 

@@ -49,6 +49,11 @@ namespace Game.General.Views
 
         private List<BodyPartView> bodyParts = new List<BodyPartView>();
 
+        private void Awake()
+        {
+            animator.keepAnimatorControllerStateOnDisable = true;
+        }
+
         public void ApplyConfig(Creature creature)
         {
             _creature = creature;
@@ -80,8 +85,10 @@ namespace Game.General.Views
             await UniTask.WaitForEndOfFrame();
             bodiesParent.gameObject.SetActive(false);
             bodiesParent.gameObject.SetActive(true);
-            var cache = bodiesParent.transform.position;
-            bodiesParent.DOMove(cache, 0f);
+            // var cache = bodiesParent.transform.position;
+            // bodiesParent.DOMove(cache, 0f);
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
             Canvas.ForceUpdateCanvases();
         }
 

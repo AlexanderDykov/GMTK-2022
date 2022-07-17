@@ -111,7 +111,8 @@ namespace Game.General.Views
                     turn.AssignMoves(chooseMoves);
                 }
             }
-
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
             await arenaService.ApplyTurn(turn);
 
             if (arenaService.Creatures.Count <= 1)
@@ -146,6 +147,10 @@ namespace Game.General.Views
             }
 
             await new ResetTurnCommand().Execute();
+
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
+            Canvas.ForceUpdateCanvases();
             startTurnService.StartTurn();
             button.gameObject.SetActive(true);
             uiBlocker.Block = false;

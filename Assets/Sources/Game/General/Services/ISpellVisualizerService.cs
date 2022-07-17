@@ -30,6 +30,7 @@ namespace Game.General.Services
             {
                 view.Setup(spellIconProvider.GetIcon(spell, attack));
                 view.transform.position = position;
+                Canvas.ForceUpdateCanvases();
                 //
             }
             return UniTask.Delay(600);

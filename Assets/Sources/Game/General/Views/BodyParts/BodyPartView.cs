@@ -58,6 +58,7 @@ namespace Game.General.Views.BodyParts
 
         private void Start()
         {
+            animator.keepAnimatorControllerStateOnDisable = true;
             _selector.ElementRemovedToHand += OnElementRemovedToHand;
         }
 
@@ -150,6 +151,8 @@ namespace Game.General.Views.BodyParts
                 enemies.RemoveAt(index);
             }
 
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
             _dices.Clear();
         }
     }

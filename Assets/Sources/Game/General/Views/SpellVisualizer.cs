@@ -14,6 +14,7 @@ namespace Game.General.Views
 
         public void Setup(Sprite icon)
         {
+            animator.keepAnimatorControllerStateOnDisable = true;
             gameObject.SetActive(true);
             for (var i = 0; i < _icons.Length; i++)
             {
