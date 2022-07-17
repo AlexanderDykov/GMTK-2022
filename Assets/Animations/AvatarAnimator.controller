@@ -36,7 +36,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: DemageRecieve
+    m_ConditionEvent: DamageReceive
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1917301524925368311}
@@ -110,7 +110,7 @@ AnimatorController:
   m_Name: AvatarAnimator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: DemageRecieve
+  - m_Name: DamageReceive
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
