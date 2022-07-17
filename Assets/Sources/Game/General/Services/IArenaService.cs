@@ -4,6 +4,8 @@ namespace Game.General.Services
 {
     public interface IArenaService
     {
+        Arena Get();
+
         void Add(string id, Creature creature);
 
         void RestartArena();
@@ -19,6 +21,11 @@ namespace Game.General.Services
         public ArenaService(ISpellBookService spellBookService)
         {
             _arena = new Arena(spellBookService.Get());
+        }
+
+        public Arena Get()
+        {
+            return _arena;
         }
 
         public void Add(string id, Creature creature)

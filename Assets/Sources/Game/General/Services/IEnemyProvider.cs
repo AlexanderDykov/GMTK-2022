@@ -45,7 +45,8 @@ namespace Game.General.Services
                 {
                     MakeSimpleDice()
                 },
-                MaxHealth = 20
+                MaxHealth = 20,
+                ChooseMovesStrategy = new RandomChooseMovesStrategy()
             };
         }
 
@@ -64,7 +65,8 @@ namespace Game.General.Services
                     MakeSimpleDice(),
                     MakeSimpleDice()
                 },
-                MaxHealth = 36
+                MaxHealth = 36,
+                ChooseMovesStrategy = new RandomChooseMovesStrategy()
             };
         }
 
@@ -85,7 +87,8 @@ namespace Game.General.Services
                     MakeSimpleDice(),
                     MakeSimpleDice()
                 },
-                MaxHealth = 54
+                MaxHealth = 54,
+                ChooseMovesStrategy = new RandomChooseMovesStrategy()
             };
         }
 
@@ -108,7 +111,8 @@ namespace Game.General.Services
                     MakeSimpleDice(),
                     MakeSimpleDice()
                 },
-                MaxHealth = 76
+                MaxHealth = 76,
+                ChooseMovesStrategy = new RandomChooseMovesStrategy()
             };
         }
 
@@ -134,7 +138,8 @@ namespace Game.General.Services
                     MakeSimpleDice(),
                     MakeSimpleDice()
                 },
-                MaxHealth = 120
+                MaxHealth = 120,
+                ChooseMovesStrategy = new RandomChooseMovesStrategy()
             };
         }
 

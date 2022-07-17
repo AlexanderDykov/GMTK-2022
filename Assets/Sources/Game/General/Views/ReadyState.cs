@@ -13,13 +13,8 @@ namespace Game.General.Views
         [SerializeField]
         private Button button;
 
-
         [Inject]
         private IPlayerAssignedMoveCollector playerAssignedMoveCollector;
-
-        [Inject]
-        private IEnemyAssignedMoveCollector enemyAssignedMoveCollector;
-
 
         [Inject]
         private IArenaService arenaService;
@@ -31,9 +26,17 @@ namespace Game.General.Views
 
         private async void OnReadyButtonClick()
         {
+            var arena = arenaService.Get();
             var turn = new Turn();
             turn.AssignMoves(playerAssignedMoveCollector.CreateAssignedMove());
-            turn.AssignMoves(enemyAssignedMoveCollector.CreateAssignedMove());
+            foreach (var creature in arena.Creatures.Values)
+            {
+                var strategy = creature.Config.ChooseMovesStrategy;
+                if (strategy != null)
+                {
+                    turn.AssignMoves(strategy.ChooseMoves(creature, arena, turn));
+                }
+            }
             arenaService.ApplyTurn(turn);
             await new ResetTurnCommand().Execute();
         }
