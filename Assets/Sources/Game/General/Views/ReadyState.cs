@@ -49,6 +49,10 @@ namespace Game.General.Views
 
         [Inject]
         private IDiceSelector diceSelector;
+
+        [Inject]
+        private ISoundService soundService;
+        
         private void Start()
         {
             DisableAllButtons();
@@ -60,11 +64,13 @@ namespace Game.General.Views
 
         private void OnNextCreatureClick()
         {
+            soundService.Play(SFX.ButtonClick);
             startGameService.Start();
         }
 
         private void OnGoToMenuClick()
         {
+            soundService.Play(SFX.ButtonClick);
             enemyProvider.Restart();
             startGameService.Start();
         }
@@ -78,6 +84,7 @@ namespace Game.General.Views
 
         private async void OnReadyButtonClick()
         {
+            soundService.Play(SFX.ButtonClick);
             uiBlocker.Block = true;
             diceSelector.Deselect();
             

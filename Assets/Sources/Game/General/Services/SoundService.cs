@@ -12,7 +12,10 @@ namespace Game.General.Services
     {
         DiceRoll,
         DicePlace,
-        Attack
+        Attack,
+        GetDamage,
+        ButtonClick,
+        SelectDice
     }
 
     public class SoundService : MonoInstaller<SoundService>, ISoundService

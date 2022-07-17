@@ -156,6 +156,7 @@ namespace Game.General.Views
             }
 
             _diceSelector.Deselect();
+            soundService.Play(SFX.SelectDice);
             _diceSelector.Select(element);
             foreach (var layoutGroup in groups)
             {

@@ -73,6 +73,7 @@ namespace Game.General
                 var damage = attackRecord.Calculate();
                 if (damage > 0)
                 {
+                    _soundService.Play(SFX.GetDamage);
                     creature.ApplyDamage(damage);
                 }
 
