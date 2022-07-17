@@ -1,3 +1,5 @@
+using Zenject;
+
 namespace Game.General.Services
 {
     public interface IArenaService
@@ -11,7 +13,13 @@ namespace Game.General.Services
 
     public class ArenaService : IArenaService
     {
-        private readonly Arena _arena = new Arena();
+        private readonly Arena _arena;
+
+        [Inject]
+        public ArenaService(ISpellBookService spellBookService)
+        {
+            _arena = new Arena(spellBookService.Get());
+        }
 
         public void Add(string id, Creature creature)
         {
