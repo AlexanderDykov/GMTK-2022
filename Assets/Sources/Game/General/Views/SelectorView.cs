@@ -3,6 +3,7 @@ namespace Game.General.Views
     using System.Collections.Generic;
     using System.Linq;
     using BodyParts;
+    using Cysharp.Threading.Tasks;
     using Services;
     using UnityEngine;
     using UnityEngine.EventSystems;
@@ -21,6 +22,9 @@ namespace Game.General.Views
 
         [SerializeField]
         EventSystem m_EventSystem;
+
+        [SerializeField]
+        private LayoutGroup[] groups;
 
 
         void Update()
@@ -57,6 +61,10 @@ namespace Game.General.Views
                                 _diceSelector.Deselect();
                             }
                         }
+                        foreach (var layoutGroup in groups)
+                        {
+                            Recalcul(layoutGroup);
+                        }
                     }
                     else
                     {
@@ -87,6 +95,10 @@ namespace Game.General.Views
                     .FirstOrDefault(result => result.GetComponent<DiceElement>() != null);
                 if (diceElement == null)
                 {
+                    foreach (var layoutGroup in groups)
+                    {
+                        Recalcul(layoutGroup);
+                    }
                     return;
                 }
 
@@ -95,6 +107,10 @@ namespace Game.General.Views
                 _diceSelector.Deselect();
                 element.ResetParent();
                 _diceSelector.Remove(element);
+                foreach (var layoutGroup in groups)
+                {
+                    Recalcul(layoutGroup);
+                }
             }
         }
 
@@ -104,6 +120,10 @@ namespace Game.General.Views
                 .FirstOrDefault(result => result.GetComponent<DiceElement>() != null);
             if (diceElement == null)
             {
+                foreach (var layoutGroup in groups)
+                {
+                    Recalcul(layoutGroup);
+                }
                 return;
             }
 
@@ -111,11 +131,33 @@ namespace Game.General.Views
             if (_diceSelector.Selected == element)
             {
                 _diceSelector.Deselect();
+                foreach (var layoutGroup in groups)
+                {
+                    Recalcul(layoutGroup);
+                }
+                
                 return;
             }
 
             _diceSelector.Deselect();
             _diceSelector.Select(element);
+            foreach (var layoutGroup in groups)
+            {
+                Recalcul(layoutGroup);
+            }
         }
+
+        public async void Recalcul(LayoutGroup layoutGroup)
+        {
+            layoutGroup.CalculateLayoutInputHorizontal();
+            layoutGroup.CalculateLayoutInputVertical();
+            layoutGroup.SetLayoutHorizontal();
+            layoutGroup.SetLayoutVertical();
+            await UniTask.WaitForEndOfFrame();
+            layoutGroup.gameObject.SetActive(false);
+            layoutGroup.gameObject.SetActive(true);
+            Canvas.ForceUpdateCanvases();
+        }
+        
     }
 }
