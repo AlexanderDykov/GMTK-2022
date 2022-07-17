@@ -38,6 +38,30 @@ namespace Game.General
             return rolls;
         }
 
+        protected static (Target, List<Move>) MakeMove(Creature self,
+                                                       Creature targetCreature,
+                                                       List<DiceType> rolls)
+        {
+                var target = new Target()
+                {
+                    Id = targetCreature.Id,
+                    BodyPart = targetCreature.Config.BodyParts.RandomElement()
+                };
+                var moves = new List<Move>
+                {
+                    new()
+                    {
+                        SourceId = self.Id,
+                        DiceTypes = rolls
+                    }
+                };
+                LogMove((self.Id == target.Id),
+                        self.Config.Name,
+                        target,
+                        rolls);
+                return (target, moves);
+        }
+
         protected static void LogMove(bool isDefenceMove,
                                       string name,
                                       Target target,
@@ -72,27 +96,11 @@ namespace Game.General
                 {
                     targetCreature = IChooseMovesStrategy.FindPlayer(arena);
                 }
-                var target = new Target()
-                {
-                    Id = targetCreature.Id,
-                    BodyPart = targetCreature.Config.BodyParts.RandomElement()
-                };
                 var diceTypes = new List<DiceType>
                 {
                     currentDice.Random()
                 };
-                IChooseMovesStrategy.LogMove(isDefenceMove,
-                                             self.Config.Name,
-                                             target,
-                                             diceTypes);
-                var moves = new List<Move>()
-                {
-                    new()
-                    {
-                        SourceId = self.Id,
-                        DiceTypes = diceTypes
-                    }
-                };
+                var (target, moves) = IChooseMovesStrategy.MakeMove(self, targetCreature, diceTypes);
                 result.Add(target, moves);
             }
             return result;
@@ -121,27 +129,11 @@ namespace Game.General
                 {
                     targetCreature = IChooseMovesStrategy.FindPlayer(arena);
                 }
-                var target = new Target()
-                {
-                    Id = targetCreature.Id,
-                    BodyPart = targetCreature.Config.BodyParts.RandomElement()
-                };
                 var diceTypes = new List<DiceType>
                 {
                     anyDice.Random()
                 };
-                IChooseMovesStrategy.LogMove(isDefenceMove,
-                                             self.Config.Name,
-                                             target,
-                                             diceTypes);
-                var moves = new List<Move>()
-                {
-                    new()
-                    {
-                        SourceId = self.Id,
-                        DiceTypes = diceTypes
-                    }
-                };
+                var (target, moves) = IChooseMovesStrategy.MakeMove(self, targetCreature, diceTypes);
                 result.Add(target, moves);
             }
             return result;
@@ -165,16 +157,8 @@ namespace Game.General
             var isCombo = (effect is DefaultEffect is false);
             if (isCombo)
             {
-                var target = new Target
-                {
-                    Id = player.Id,
-                    BodyPart = player.Config.BodyParts.RandomElement()
-                };
-                IChooseMovesStrategy.LogMove(false,
-                                             self.Config.Name,
-                                             target,
-                                             move.DiceTypes);
-                result.Add(target, new List<Move>{ move });
+                var (target, moves) = IChooseMovesStrategy.MakeMove(self, player, move.DiceTypes);
+                result.Add(target, moves);
             }
             else
             {
@@ -198,43 +182,13 @@ namespace Game.General
                 }
                 if (attackDices.Count != 0)
                 {
-                    var target = new Target
-                    {
-                        Id = player.Id,
-                        BodyPart = player.Config.BodyParts.RandomElement()
-                    };
-                    IChooseMovesStrategy.LogMove(false,
-                                                 self.Config.Name,
-                                                 target,
-                                                 attackDices);
-                    result.Add(target, new List<Move>
-                    {
-                        new()
-                        {
-                            SourceId = self.Id,
-                            DiceTypes = attackDices
-                        }
-                    });
+                    var (target, moves) = IChooseMovesStrategy.MakeMove(self, player, attackDices);
+                    result.Add(target, moves);
                 }
                 if (defenceDices.Count != 0)
                 {
-                    var target = new Target
-                    {
-                        Id = self.Id,
-                        BodyPart = self.Config.BodyParts.RandomElement()
-                    };
-                    IChooseMovesStrategy.LogMove(true,
-                                                 self.Config.Name,
-                                                 target,
-                                                 defenceDices);
-                    result.Add(target, new List<Move>
-                    {
-                        new()
-                        {
-                            SourceId = self.Id,
-                            DiceTypes = defenceDices
-                        }
-                    });
+                    var (target, moves) = IChooseMovesStrategy.MakeMove(self, self, defenceDices);
+                    result.Add(target, moves);
                 }
             }
             return result;
