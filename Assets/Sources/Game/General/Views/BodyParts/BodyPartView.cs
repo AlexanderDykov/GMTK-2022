@@ -5,6 +5,7 @@ namespace Game.General.Views.BodyParts
     using Effects;
     using Services;
     using UnityEngine;
+    using UnityEngine.UI;
     using Zenject;
 
     public class BodyPartView : MonoBehaviour
@@ -12,19 +13,38 @@ namespace Game.General.Views.BodyParts
         [Inject]
         private IDiceSelector _selector;
 
+        [Inject]
+        private IPlayerProvider playerProvider;
+
         [SerializeField]
         private Transform parentForDices;
 
+        [SerializeField]
+        private Transform parentForEnemyDices;
+
+        [SerializeField]
+        private DiceElement prefab;
+
+        [SerializeField]
+        private Image bg;
+
+        [SerializeField]
+        private Sprite shield;
+        
+        [SerializeField]
+        private Sprite sword;
+        
         private BodyPart _bodyPart;
 
         private string _id;
 
         private readonly HashSet<DiceElement> _dices = new();
-        
+
+        private List<DiceElement> enemies = new List<DiceElement>();
+
         public BodyPart BodyPart => _bodyPart;
         public string Id => _id;
-
-
+        
         private void Start()
         {
             _selector.ElementRemovedToHand += OnElementRemovedToHand;
@@ -44,6 +64,7 @@ namespace Game.General.Views.BodyParts
         {
             _id = id;
             _bodyPart = bodyPart;
+            bg.sprite = id == playerProvider.Id ? shield : sword;
             _dices.Clear();
         }
 
@@ -77,6 +98,14 @@ namespace Game.General.Views.BodyParts
             _selector.ElementRemovedToHand -= OnElementRemovedToHand;
         }
 
+        public void AddEnemyDices(DiceType dices)
+        {
+            parentForEnemyDices.gameObject.SetActive(true);
+            var diceElement = Instantiate(prefab, parentForEnemyDices);
+            diceElement.Apply(dices, "");
+            enemies.Add(diceElement);
+        }
+
         public void Add(DiceElement selectorSelected)
         {
             _dices.Add(selectorSelected);
@@ -87,6 +116,11 @@ namespace Game.General.Views.BodyParts
 
         public void ResetBodyPart()
         {
+            parentForEnemyDices.gameObject.SetActive(false);
+            foreach (var diceElement in enemies)
+            {
+                Destroy(diceElement.gameObject);
+            }
             _dices.Clear();
         }
     }

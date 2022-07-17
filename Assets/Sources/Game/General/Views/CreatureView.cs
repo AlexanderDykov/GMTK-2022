@@ -91,6 +91,7 @@ namespace Game.General.Views
         private void OnCurrentHealthChanged(int currentHealth, int damage)
         {
             damageLable.SetText("-" + damage);
+            animator.SetTrigger("DamageReceive");
             UpdateHealthBar(currentHealth);
         }
 
@@ -101,7 +102,6 @@ namespace Game.General.Views
                 hpLabel.text = health.ToString();
             }
 
-            animator.SetTrigger("DamageReceive");
             healthBar.value = health;
         }
 

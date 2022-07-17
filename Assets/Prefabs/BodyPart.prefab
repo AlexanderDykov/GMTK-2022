@@ -1143,6 +1143,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentForDices: {fileID: 6374322127365144708}
+  parentForEnemyDices: {fileID: 4712337415913757235}
+  prefab: {fileID: 3534326888117768243, guid: 489e39b9dcc994c62beb94b6139a9704, type: 3}
+  bg: {fileID: 2817712332510500273}
+  shield: {fileID: 21300000, guid: 1dee9f0cc625747b6ba1fdb28ddb00c0, type: 3}
+  sword: {fileID: 21300000, guid: fc78e89ccbcbb4389b3cef7603d7b639, type: 3}
 --- !u!114 &2708560246979882044
 MonoBehaviour:
   m_ObjectHideFlags: 0

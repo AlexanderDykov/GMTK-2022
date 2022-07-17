@@ -2,11 +2,14 @@ namespace Game.General.Views
 {
     using System;
     using System.Linq;
+    using BodyParts;
     using Commands;
+    using Cysharp.Threading.Tasks;
     using Services;
     using UnityEngine;
     using UnityEngine.UI;
     using Zenject;
+    using static UnityEngine.Object;
 
     public class ReadyState : MonoBehaviour
     {
@@ -68,10 +71,30 @@ namespace Game.General.Views
                 var strategy = creature.Config.ChooseMovesStrategy;
                 if (strategy != null)
                 {
-                    turn.AssignMoves(strategy.ChooseMoves(creature, arena, turn));
+                    var chooseMoves = strategy.ChooseMoves(creature, arena, turn);
+
+
+                    if (creature.Id != playerProvider.Id)
+                    {
+                        foreach (var chooseMove in chooseMoves)
+                        {
+                            var bodyPartView = FindObjectsOfType<BodyPartView>()
+                                .First(x => x.Id == chooseMove.Key.Id && x.BodyPart == chooseMove.Key.BodyPart);
+                            foreach (var move in chooseMove.Value)
+                            {
+                                foreach (var moveDiceType in move.DiceTypes)
+                                {
+                                    bodyPartView.AddEnemyDices(moveDiceType);
+                                }
+                            }
+                        }
+                    }
+
+                    turn.AssignMoves(chooseMoves);
                 }
             }
 
+            await UniTask.Delay(5000);
             arenaService.ApplyTurn(turn);
 
             if (arenaService.Creatures.Count <= 1)
