@@ -48,7 +48,7 @@ namespace Game.General.Services
                     MakeSimpleDice()
                 },
                 MaxHealth = 20,
-                ChooseMovesStrategy = new RandomChooseMovesStrategy()
+                ChooseMovesStrategy = new DuxStrategy()
             };
         }
 

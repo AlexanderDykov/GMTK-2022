@@ -1,13 +1,51 @@
 namespace Game.General
 {
-    using System;
-    using System.Collections.Generic;
     using Game.General.Effects;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System;
     using UnityEngine;
 
     public interface IChooseMovesStrategy
     {
         Dictionary<Target, List<Move>> ChooseMoves(Creature self, Arena arena, Turn turn);
+
+        protected static Creature FindPlayer(Arena arena)
+        {
+            foreach (var creature in arena.Creatures.Values)
+            {
+                if (creature.Config.SpriteName == "player")
+                {
+                    return creature;
+                }
+            }
+            return null;
+        }
+
+        protected static bool IsDefenceMove(int defenceMoveProbabilityPercents)
+        {
+            return UnityEngine.Random.Range(0f, 1f) <= (defenceMoveProbabilityPercents / 100.0f);
+        }
+
+        protected static void LogMove(bool isDefenceMove,
+                                      string name,
+                                      Target target,
+                                      List<DiceType> diceTypes)
+        {
+            string diceValues = "";
+            foreach (var diceType in diceTypes)
+            {
+                diceValues += diceType + ":";
+            }
+            if (isDefenceMove)
+            {
+                Debug.LogError(name + " defends his " + target.BodyPart + " with value = " + diceValues);
+            }
+            else
+            {
+                Debug.LogError(name + " attack players " + target.BodyPart + " with value = " + diceValues);
+            }
+        }
     }
 
     public class RandomChooseMovesStrategy : IChooseMovesStrategy
@@ -17,44 +55,83 @@ namespace Game.General
             var result = new Dictionary<Target, List<Move>>();
             foreach (var currentDice in self.Config.Dices)
             {
-                var randomDice = currentDice.Random();
-                var target = self;
-                var isTargetSelf = UnityEngine.Random.Range(0f, 1f) >= 0.5f;
-                if (!isTargetSelf)
+                var targetCreature = self;
+                var isDefenceMove = IChooseMovesStrategy.IsDefenceMove(50);
+                if (!isDefenceMove)
                 {
-                    foreach (var creature in arena.Creatures.Values)
-                    {
-                        if (creature.Config.SpriteName == "player")
-                        {
-                            target = creature;
-                            break;
-                        }
-                    }
+                    targetCreature = IChooseMovesStrategy.FindPlayer(arena);
                 }
-                var bodyPart = target.Config.BodyParts.RandomElement();
-                if (isTargetSelf)
+                var target = new Target()
                 {
-                    Debug.LogError("Enemy defends his " + bodyPart + " with value = " + randomDice);
-                }
-                else
+                    Id = targetCreature.Id,
+                    BodyPart = targetCreature.Config.BodyParts.RandomElement()
+                };
+                var diceTypes = new List<DiceType>
                 {
-                    Debug.LogError("Enemy attack players " + bodyPart + " with value = " + randomDice);
-                }
-                result.Add(new Target()
-                {
-                    Id = target.Id,
-                    BodyPart = bodyPart
-                }, new List<Move>()
+                    currentDice.Random()
+                };
+                IChooseMovesStrategy.LogMove(isDefenceMove,
+                                             self.Config.SpriteName,
+                                             target,
+                                             diceTypes);
+                var moves = new List<Move>()
                 {
                     new()
                     {
                         SourceId = self.Id,
-                        DiceTypes = new List<DiceType>
-                        {
-                            randomDice
-                        }
+                        DiceTypes = diceTypes
                     }
-                });
+                };
+                result.Add(target, moves);
+            }
+            return result;
+        }
+    }
+
+    public class DuxStrategy : IChooseMovesStrategy
+    {
+        public Dictionary<Target, List<Move>> ChooseMoves(Creature self, Arena arena, Turn turn)
+        {
+            var result = new Dictionary<Target, List<Move>>();
+            var anyDice = self.Config.Dices.Last();
+            if (anyDice != null)
+            {
+                bool isDefenceMove = false;
+                if (self.GetHealthPercents() < 40)
+                {
+                    isDefenceMove = IChooseMovesStrategy.IsDefenceMove(75);
+                }
+                else
+                {
+                    isDefenceMove = IChooseMovesStrategy.IsDefenceMove(50);
+                }
+                var targetCreature = self;
+                if (!isDefenceMove)
+                {
+                    targetCreature = IChooseMovesStrategy.FindPlayer(arena);
+                }
+                var target = new Target()
+                {
+                    Id = targetCreature.Id,
+                    BodyPart = targetCreature.Config.BodyParts.RandomElement()
+                };
+                var diceTypes = new List<DiceType>
+                {
+                    anyDice.Random()
+                };
+                IChooseMovesStrategy.LogMove(isDefenceMove,
+                                             self.Config.SpriteName,
+                                             target,
+                                             diceTypes);
+                var moves = new List<Move>()
+                {
+                    new()
+                    {
+                        SourceId = self.Id,
+                        DiceTypes = diceTypes
+                    }
+                };
+                result.Add(target, moves);
             }
             return result;
         }
@@ -99,6 +176,11 @@ namespace Game.General
             Debug.LogError("Creature " + Id + " received = " + damage + " and health = " + _currentHealth);
             _currentHealth = Math.Max(0, _currentHealth);
             CurrentHealthChanged?.Invoke(_currentHealth);
+        }
+
+        public int GetHealthPercents()
+        {
+            return (int)(((float)_currentHealth / Config.MaxHealth) * 100.0f);
         }
     }
 }
