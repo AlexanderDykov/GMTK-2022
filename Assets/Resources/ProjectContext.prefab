@@ -147,11 +147,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioDictionary:
-    keys: 000000000100000002000000
+    keys: 000000000100000002000000030000000500000004000000
     values:
     - {fileID: 8300000, guid: aaf0426a4dfaf4883b401ff0996cf2a9, type: 3}
     - {fileID: 8300000, guid: 317ad62badea840f48683005d499778e, type: 3}
     - {fileID: 8300000, guid: b25dab41b02004d5ba5703f446fef978, type: 3}
+    - {fileID: 8300000, guid: ab0f77f9daffc47ecb03fa3d45e66228, type: 3}
+    - {fileID: 8300000, guid: bba8be9101c0a4047bc8b54aaf8a39aa, type: 3}
+    - {fileID: 8300000, guid: 2a8da74f669574d8ca48a68435fea643, type: 3}
   audioSource: {fileID: -5715030545318977604}
 --- !u!82 &4261681326710349974
 AudioSource:
