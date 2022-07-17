@@ -89,8 +89,9 @@ namespace Game.General
         }
 
         public bool IsDead => _currentHealth <= 0;
+        public int CurrentHealth => _currentHealth;
+
         public event Action<int> CurrentHealthChanged;
-        public event Action Dead;
 
         public void ApplyDamage(int damage)
         {
@@ -98,11 +99,6 @@ namespace Game.General
             Debug.LogError("Creature " + Id + " received = " + damage + " and health = " + _currentHealth);
             _currentHealth = Math.Max(0, _currentHealth);
             CurrentHealthChanged?.Invoke(_currentHealth);
-
-            if (IsDead)
-            {
-                Dead?.Invoke();
-            }
         }
     }
 }

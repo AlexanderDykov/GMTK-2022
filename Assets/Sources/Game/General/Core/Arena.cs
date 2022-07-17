@@ -58,10 +58,6 @@ namespace Game.General
             }
 
             Creatures = notDeadList;
-            if (Creatures.Count == 0)
-            {
-                Debug.LogError("End");
-            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Game.General.Services
         void Next();
 
         string Id { get; }
+        void Clear();
     }
 
     public class EnemyProvider : IEnemyProvider
@@ -152,7 +153,7 @@ namespace Game.General.Services
             MakeHydra()
         };
 
-        private int currentIndex = -1;
+        private int currentIndex = 0;
 
         public void Next()
         {
@@ -160,5 +161,9 @@ namespace Game.General.Services
         }
 
         public string Id { get; } = Guid.NewGuid().ToString();
+        public void Clear()
+        {
+            enemies.Clear();
+        }
     }
 }

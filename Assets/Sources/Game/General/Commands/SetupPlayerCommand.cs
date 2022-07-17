@@ -10,18 +10,27 @@ namespace Game.General.Commands
     {
         private IPlayerProvider playerProvider;
 
-        public SetupPlayerCommand(IPlayerProvider playerProvider)
+        private IArenaService arenaService;
+
+        public SetupPlayerCommand(IPlayerProvider playerProvider, IArenaService arenaService)
         {
             this.playerProvider = playerProvider;
+            this.arenaService = arenaService;
         }
 
         public UniTask Execute()
         {
-            var player = playerProvider.PlayerConfig;
+            var playerConfig = playerProvider.PlayerConfig;
 
             var playerView = Object.FindObjectsOfType<CreatureView>().FirstOrDefault(x => x.CompareTag("Player"));
             if (playerView != null)
             {
+                var player = new Creature(playerConfig, playerProvider.Id);
+                if (arenaService.Creatures.ContainsKey(player.Id))
+                {
+                    player = arenaService.Creatures[player.Id];
+                }
+
                 playerView.ApplyConfig(player);
             }
 

@@ -78,7 +78,7 @@ namespace Game.General.Views.BodyParts
         {
             _dices.Add(selectorSelected);
             //todo move selectorSelected to this transform position
-            selectorSelected.transform.parent = parentForDices;
+            selectorSelected.transform.SetParent( parentForDices);
             selectorSelected.transform.position = transform.position;
         }
 

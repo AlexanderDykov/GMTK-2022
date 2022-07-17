@@ -13,11 +13,20 @@ namespace Game.General.Views
         [Inject]
         private IEnemyProvider enemyProvider;
 
+        [Inject]
+        private ILoaderService loaderService;
+
+        [Inject]
+        private IArenaService arenaService;
+
         private async void Start()
         {
+            loaderService.Show();
             await new LoadSceneCommand("GameScene").Execute();
-            await new SetupPlayerCommand(playerProvider).Execute();
+            await new SetupPlayerCommand(playerProvider, arenaService).Execute();
             await new SetupCreaturesCommand(enemyProvider).Execute();
+
+            loaderService.Hide();
         }
     }
 }

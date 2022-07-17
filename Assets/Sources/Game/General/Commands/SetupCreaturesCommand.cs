@@ -3,6 +3,7 @@ namespace Game.General.Commands
     using System.Linq;
     using Cysharp.Threading.Tasks;
     using Services;
+    using UnityEngine;
     using Views;
     using static UnityEngine.Object;
 
@@ -17,11 +18,12 @@ namespace Game.General.Commands
 
         public UniTask Execute()
         {
-            enemyProvider.Next();
             var enemyView = FindObjectsOfType<CreatureView>().FirstOrDefault(x => x.CompareTag("Enemy"));
             if (enemyView != null)
             {
-                enemyView.ApplyConfig(enemyProvider.Current);
+                Debug.LogError("You start fighting with " + enemyProvider.Current.SpriteName);
+                var enemy = new Creature(enemyProvider.Current, enemyProvider.Id);
+                enemyView.ApplyConfig(enemy);
             }
 
             return UniTask.CompletedTask;

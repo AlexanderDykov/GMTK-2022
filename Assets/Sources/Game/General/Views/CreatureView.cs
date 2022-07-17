@@ -38,24 +38,24 @@ namespace Game.General.Views
 
         private Creature _creature;
 
-        private string ID => isPlayer ? playerProvider.Id : enemyProvider.Id;
+        // private string ID => isPlayer ? playerProvider.Id : enemyProvider.Id;
 
         private List<BodyPartView> bodyParts = new List<BodyPartView>();
 
-        public void ApplyConfig(CreatureConfig creatureConfig)
+        public void ApplyConfig(Creature creature)
         {
-            _creature = new Creature(creatureConfig, ID);
+            _creature = creature;
             _creature.CurrentHealthChanged += OnCurrentHealthChanged;
 
-            arenaService.Add(ID, _creature);
-            healthBar.maxValue = creatureConfig.MaxHealth;
-            UpdateHealthBar(creatureConfig.MaxHealth);
+            arenaService.Add(_creature.Id, _creature);
+            healthBar.maxValue = _creature.Config.MaxHealth;
+            UpdateHealthBar(_creature.CurrentHealth);
 
-            foreach (var creatureConfigBodyPart in creatureConfig.BodyParts)
+            foreach (var creatureConfigBodyPart in _creature.Config.BodyParts)
             {
                 var bodyPart = Instantiate(_bodyPartViewPrefab, bodiesParent);
                 bodyParts.Add(bodyPart);
-                bodyPart.Create(creatureConfigBodyPart, ID);
+                bodyPart.Create(creatureConfigBodyPart, _creature.Id);
             }
 
             ApplyDices();
@@ -81,7 +81,7 @@ namespace Game.General.Views
                     dices.Add(creatureConfigDice.Random());
                 }
 
-                _dicesPanel.Setup(ID, dices);
+                _dicesPanel.Setup(_creature.Id, dices);
             }
         }
 
