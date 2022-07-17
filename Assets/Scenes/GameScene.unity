@@ -484,11 +484,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2581b30dfe74456bbe17001d6c1a0b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 656113885}
   healthBar: {fileID: 1977166002}
   bodiesParent: {fileID: 1097693346}
   _dicesPanel: {fileID: 186289476}
   _bodyPartViewPrefab: {fileID: 6278403426237526990, guid: 093b05b7ab790405883f460bb9ca40e9,
     type: 3}
+  animator: {fileID: 538830958}
+  damageLable: {fileID: 1832703201}
   hpLabel: {fileID: 0}
 --- !u!1 &477148608
 GameObject:
@@ -2258,11 +2261,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2581b30dfe74456bbe17001d6c1a0b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 1980437}
   healthBar: {fileID: 727357959}
   bodiesParent: {fileID: 1628892629}
   _dicesPanel: {fileID: 0}
   _bodyPartViewPrefab: {fileID: 6278403426237526990, guid: 093b05b7ab790405883f460bb9ca40e9,
     type: 3}
+  animator: {fileID: 668480790}
+  damageLable: {fileID: 1348515712}
   hpLabel: {fileID: 0}
 --- !u!1 &1628892628
 GameObject:
